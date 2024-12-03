@@ -1,22 +1,19 @@
 const sql = require('mssql');
 const config = require('../config/database');
 
-
 const getAllMalzemeFromDB = async () => {
     const pool = await sql.connect(config);
-    const result = await pool.request().query('SELECT * FROM malzeme');
+    const result = await pool.request().execute('sp_GetAllMalzeme');
     return result.recordset;
 };
-
 
 const getMalzemeByIdFromDB = async (id) => {
     const pool = await sql.connect(config);
     const result = await pool.request()
         .input('id', sql.Int, id)
-        .query('SELECT * FROM malzeme WHERE id = @id');
+        .execute('sp_GetMalzemeById');
     return result.recordset[0];
 };
-
 
 const createMalzemeFromDB = async (ad, miktar, birim, firma_id) => {
     const pool = await sql.connect(config);
@@ -25,9 +22,8 @@ const createMalzemeFromDB = async (ad, miktar, birim, firma_id) => {
         .input('miktar', sql.Int, miktar)
         .input('birim', sql.NVarChar, birim)
         .input('firma_id', sql.Int, firma_id)
-        .query('INSERT INTO malzeme (ad, miktar, birim, firma_id) VALUES (@ad, @miktar, @birim, @firma_id)');
+        .execute('sp_CreateMalzeme');
 };
-
 
 const updateMalzemeFromDB = async (id, ad, miktar, birim, firma_id) => {
     const pool = await sql.connect(config);
@@ -37,14 +33,15 @@ const updateMalzemeFromDB = async (id, ad, miktar, birim, firma_id) => {
         .input('miktar', sql.Int, miktar)
         .input('birim', sql.NVarChar, birim)
         .input('firma_id', sql.Int, firma_id)
-        .query('UPDATE malzeme SET ad = @ad, miktar = @miktar, birim = @birim, firma_id = @firma_id WHERE id = @id');
+        .execute('sp_UpdateMalzeme');
     return result.rowsAffected[0];
 };
 
-
 const deleteMalzemeFromDB = async (id) => {
     const pool = await sql.connect(config);
-    const result = await pool.request().input('id', sql.Int, id).query('DELETE FROM malzeme WHERE id = @id');
+    const result = await pool.request()
+        .input('id', sql.Int, id)
+        .execute('sp_DeleteMalzeme');
     return result.rowsAffected[0];
 };
 
