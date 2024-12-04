@@ -1,6 +1,8 @@
+const sql = require('mssql');
 require('dotenv').config();
 
-const config = {
+const db = () => {
+    const config = {
     server: process.env.DB_SERVER,
     database: process.env.DB_DATABASE,
     user: process.env.DB_USER,
@@ -12,4 +14,14 @@ const config = {
     }
 };
 
-module.exports = config;
+    sql.connect(config)
+    .then(() => {
+        console.log('Connected to MSSQL Database.');
+    })
+    .catch((err) => {
+        console.error('Database connection failed:', err);
+    });
+}
+
+
+module.exports = db;

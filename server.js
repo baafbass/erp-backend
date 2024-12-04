@@ -1,24 +1,16 @@
-const express = require('express');
-const sql = require('mssql');
-const config = require('./config/database');
+const http = require('http')
+const db = require('./config/database');
+const app = require('./app')
+const dotenv = require('dotenv')
 
-const malzemeRoutes = require('./routes/malzeme.routes');
+dotenv.config();
 
-const app = express();
-const port = 3000;
+const PORT = process.env.PORT || 5000;
 
-app.use(express.json());
+const server = http.createServer(app);
 
-sql.connect(config)
-    .then(() => {
-        console.log('Connected to MSSQL Database.');
-    })
-    .catch((err) => {
-        console.error('Database connection failed:', err);
-    });
+db();
 
-app.use('/api/malzeme',malzemeRoutes)
-
-app.listen(port, () => {
-    console.log(`Server running on http://localhost:${port}`);
+server.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
 });

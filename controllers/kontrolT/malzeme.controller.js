@@ -1,10 +1,10 @@
 const {
     getAllMalzemeFromDB,
-    getMalzemeByIdFromDB,
+    getMalzemeFromDB,
     createMalzemeFromDB,
     updateMalzemeFromDB,
     deleteMalzemeFromDB,
-} = require('../repositories/malzeme.repository');
+} = require('../../repositories/kontrolT/malzeme.repository');
 
 const getAllMalzeme = async (req, res) => {
     try {
@@ -15,9 +15,9 @@ const getAllMalzeme = async (req, res) => {
     }
 };
 
-const getMalzemeById = async (req, res) => {
+const getMalzeme = async (req, res) => {
     try {
-        const malzeme = await getMalzemeByIdFromDB(req.params.id);
+        const malzeme = await getMalzemeFromDB(req.params.id);
         if (!malzeme) {
             return res.status(404).json({ message: 'Malzeme not found' });
         }
@@ -28,9 +28,9 @@ const getMalzemeById = async (req, res) => {
 };
 
 const createMalzeme = async (req, res) => {
-    const { ad, miktar, birim, firma_id } = req.body;
+    const { firma_kodu, malzeme, malzeme_aciklamasi, passif_mi } = req.body;
     try {
-        await createMalzemeFromDB(ad, miktar, birim, firma_id);
+        await createMalzemeFromDB(firma_kodu, malzeme, malzeme_aciklamasi, passif_mi);
         res.status(201).json({ message: 'Malzeme created successfully' });
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -38,10 +38,10 @@ const createMalzeme = async (req, res) => {
 };
 
 const updateMalzeme = async (req, res) => {
-    const { ad, miktar, birim, firma_id } = req.body;
+    const { firma_kodu, malzeme, malzeme_aciklamasi, passif_mi } = req.body;
     try {
-        const updatedRows = await updateMalzemeFromDB(req.params.id, ad, miktar, birim, firma_id);
-        if (updatedRows === 0) {
+        const updatedMalzeme = await updateMalzemeFromDB(firma_kodu, malzeme, malzeme_aciklamasi, passif_mi);
+        if (updatedMalzeme === 0) {
             return res.status(404).json({ message: 'Malzeme not found' });
         }
         res.json({ message: 'Malzeme updated successfully' });
@@ -52,8 +52,8 @@ const updateMalzeme = async (req, res) => {
 
 const deleteMalzeme = async (req, res) => {
     try {
-        const deletedRows = await deleteMalzemeFromDB(req.params.id);
-        if (deletedRows === 0) {
+        const deletedMalzeme = await deleteMalzemeFromDB(req.params.id);
+        if (deletedMalzeme === 0) {
             return res.status(404).json({ message: 'Malzeme not found' });
         }
         res.json({ message: 'Malzeme deleted successfully' });
@@ -64,7 +64,7 @@ const deleteMalzeme = async (req, res) => {
 
 module.exports = {
     getAllMalzeme,
-    getMalzemeById,
+    getMalzeme,
     createMalzeme,
     updateMalzeme,
     deleteMalzeme,

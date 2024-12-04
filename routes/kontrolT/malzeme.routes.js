@@ -3,14 +3,14 @@ const router = express.Router();
 
 const {
     getAllMalzeme,
-    getMalzemeById,
+    getMalzeme,
     createMalzeme,
     deleteMalzeme,
     updateMalzeme
-} = require('../controllers/malzeme.controller');
+} = require('../../controllers/kontrolT/malzeme.controller');
 
 router.get('/', getAllMalzeme);
-router.get('/:id', getMalzemeById);
+router.get('/:id', getMalzeme);
 router.post('/', createMalzeme);
 router.put('/:id', updateMalzeme);
 router.delete('/:id', deleteMalzeme);
