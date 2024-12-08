@@ -1,6 +1,13 @@
 const sql = require('mssql');
 const config = require('../../config/database');
 
+
+const getAllFirmaFromDB = async () => {
+    const pool = await sql.connect(config);
+    const result = await pool.request().execute('sp_GetAllFirma');
+    return result.recordset;
+};
+
 const getFirmaFromDB = async (firma_kodu) => {
     const pool = await sql.connect(config);
     const result = await pool.request()
@@ -11,7 +18,7 @@ const getFirmaFromDB = async (firma_kodu) => {
 
 const createFirmaFromDB = async (firma_kodu,firma_adi,firma_adresi_1,firma_adresi_2,sehir_kodu,ulke_kodu) => {
     const pool = await sql.connect(config);
-    await pool.request()
+        await pool.request()
         .input('COMCODE', sql.VarChar, firma_kodu)
         .input('COMTEXT', sql.VarChar, firma_adi)
         .input('ADDRESS1', sql.VarChar, firma_adresi_1)
@@ -43,6 +50,7 @@ const deleteFirmaFromDB = async (firma_kodu) => {
 };
 
 module.exports = {
+    getAllFirmaFromDB,
     getFirmaFromDB,
     createFirmaFromDB,
     updateFirmaFromDB,

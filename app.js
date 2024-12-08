@@ -12,7 +12,10 @@ const operasyonRoutes = require('./routes/kontrolT/operasyon.routes');
 const rotaRoutes = require('./routes/kontrolT/rota.routes');
 const sehirRoutes = require('./routes/kontrolT/sehir.routes');
 const ulkeRoutes = require('./routes/kontrolT/ulke.routes');
-const urunAgaciRoutes = require('./routes/kontrolT/urunAgaci.routes')
+const urunAgaciRoutes = require('./routes/kontrolT/urunAgaci.routes');
+
+const malzemeHeadRoutes = require('./routes/MalzemeBilgileri/malzemeHead.routes');
+const malzemeTextRoutes = require('./routes/MalzemeBilgileri/malzemeText.routes');
 
 const app = express();
 
@@ -30,6 +33,9 @@ app.use("/api/rota",rotaRoutes);
 app.use("/api/sehir",sehirRoutes);
 app.use("/api/ulke",ulkeRoutes);
 app.use("/api/urun-agaci",urunAgaciRoutes);
+
+app.use("/api/malzeme-bilgileri/malzeme-head",malzemeHeadRoutes);
+app.use("/api/malzeme-bilgileri/malzeme-text",malzemeTextRoutes);
 
 app.use((req,res)=>{
 	return res.status(404).json({
