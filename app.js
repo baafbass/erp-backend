@@ -20,6 +20,9 @@ const malzemeTextRoutes = require('./routes/MalzemeBilgileri/malzemeText.routes'
 const maliyetHeadRoutes = require('./routes/MaliyetMerkezleri/maliyetHead.routes');
 const maliyetTextRoutes = require('./routes/MaliyetMerkezleri/maliyetText.routes');
 
+const urunAgaciHeadRoutes = require('./routes/UrunAgacilari/urunAgaciHead.routes');
+const urunAgaciContentRoutes = require('./routes/UrunAgacilari/urunAgaciContent.routes')
+
 const app = express();
 
 app.use(cors());
@@ -42,6 +45,9 @@ app.use("/api/malzeme-bilgileri/malzeme-text",malzemeTextRoutes);
 
 app.use("/api/maliyet-merkezleri/maliyet-head",maliyetHeadRoutes);
 app.use("/api/maliyet-merkezleri/maliyet-text",maliyetTextRoutes);
+
+app.use("/api/urun-agacilari/urun-agaci-head",urunAgaciHeadRoutes);
+app.use("/api/urun-agacilari/urun-agaci-content",urunAgaciContentRoutes);
 
 app.use((req,res)=>{
 	return res.status(404).json({
