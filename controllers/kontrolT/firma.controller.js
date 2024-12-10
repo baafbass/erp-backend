@@ -20,8 +20,9 @@ const getAllFirma = async (req, res) => {
 };
 
 const getFirma = async (req, res) => {
+    const {firma_kodu} = req.params;
     try {
-        const firma = await getFirmaFromDB(req.params.id);
+        const firma = await getFirmaFromDB(firma_kodu);
         if (!firma) {
             return res.status(404).json({ message: 'firma not found' });
         }
@@ -63,8 +64,9 @@ const updateFirma = async (req, res) => {
 };
 
 const deleteFirma = async (req, res) => {
+    const {firma_kodu} = req.params;
     try {
-        const deletedFirma = await deleteFirmaFromDB(req.params.id);
+        const deletedFirma = await deleteFirmaFromDB(firma_kodu);
         if (deletedFirma === 0) {
             return res.status(404).json({ message: 'Firma not found' });
         }

@@ -9,9 +9,17 @@ const {
 const getAllBirim = async (req, res) => {
     try {
         const birimler = await getAllBirimFromDB();
+        
+        console.log('type',typeof birimler[0].ISMAINUNIT);
+
+        const transformedBirimler  = birimler.map((birim)=>({
+            ...birim,
+            ISMAINUNIT: birim.ISMAINUNIT === 1 ? "Evet": "Hayir",
+        }))
+
         res.status(200).json({
             status:"OK",
-            birimler,
+            transformedBirimler,
         });
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -19,12 +27,22 @@ const getAllBirim = async (req, res) => {
 };
 
 const getBirim = async (req, res) => {
+    const {birim_kodu,firma_kodu} = req.params;
     try {
-        const birim = await getBirimFromDB(req.params.id);
+        const birim = await getBirimFromDB(birim_kodu,firma_kodu);
         if (!birim) {
             return res.status(404).json({ message: 'Birim not found' });
         }
-        res.json(birim);
+       
+        const transformedBirim = {
+            ...birim,
+            ISMAINUNIT: birim.ISMAINUNIT === 1 ? "1":"0"
+        }
+
+        res.status(200).json({
+            status:"OK",
+            transformedBirim
+        });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -32,9 +50,14 @@ const getBirim = async (req, res) => {
 
 const createBirim = async (req, res) => {
     const { firma_kodu, birim_kodu, birim_adi, ana_agirlik_birimi, ana_birim_kodu } = req.body;
+    console.log(firma_kodu, birim_kodu, birim_adi, ana_agirlik_birimi, ana_birim_kodu)
+    console.log(typeof ana_agirlik_birimi);
     try {
         await createBirimFromDB(firma_kodu, birim_kodu, birim_adi, ana_agirlik_birimi, ana_birim_kodu);
-        res.status(201).json({ message: 'Birim created successfully' });
+        res.status(201).json({
+            status:"OK", 
+            message: 'Birim created successfully' 
+        });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -47,19 +70,26 @@ const updateBirim = async (req, res) => {
         if (updatedBirim === 0) {
             return res.status(404).json({ message: 'Birim not found' });
         }
-        res.json({ message: 'Birim updated successfully' });
+        res.status(200).json({
+            status:"OK", 
+            message: 'Birim updated successfully' 
+        });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 };
 
 const deleteBirim = async (req, res) => {
+    const {birim_kodu,firma_kodu} = req.params;
     try {
-        const deletedBirim = await deleteBirimFromDB(req.params.id);
+        const deletedBirim = await deleteBirimFromDB(birim_kodu,firma_kodu);
         if (deletedBirim === 0) {
             return res.status(404).json({ message: 'Birim not found' });
         }
-        res.json({ message: 'Birim deleted successfully' });
+        res.status(200).json({ 
+            status:"OK",
+            message: 'Birim deleted successfully' 
+        });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

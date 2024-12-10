@@ -10,9 +10,9 @@ const {
 } = require('../../controllers/kontrolT/birim.controller');
 
 router.get('',getAllBirim);
-router.get('/:id', getBirim);
+router.get('/:birim_kodu/:firma_kodu', getBirim);
 router.post('/', createBirim);
-router.put('/:id', updateBirim);
-router.delete('/:id', deleteBirim);
+router.put('/', updateBirim);
+router.delete('/:birim_kodu/:firma_kodu', deleteBirim);
 
 module.exports = router;

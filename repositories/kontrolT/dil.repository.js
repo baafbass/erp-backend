@@ -7,15 +7,17 @@ const getAllDilFromDB = async () => {
     return result.recordset;
 };
 
-const getDilFromDB = async (dil_kodu) => {
+const getDilFromDB = async (dil_kodu,firma_kodu) => {
     const pool = await sql.connect(config);
     const result = await pool.request()
         .input('LANCODE', sql.VarChar, dil_kodu)
+        .input('COMCODE',sql.VarChar,firma_kodu)
         .execute('sp_GetDil');
     return result.recordset[0];
 };
 
 const createDilFromDB = async (firma_kodu,dil_kodu, dil_adi) => {
+    console.log("repo",firma_kodu,dil_kodu,dil_adi)
     const pool = await sql.connect(config);
     await pool.request()
         .input('COMCODE', sql.VarChar, firma_kodu)
@@ -34,10 +36,11 @@ const updateDilFromDB = async (firma_kodu,dil_kodu, dil_adi) => {
     return result.rowsAffected[0];
 };
 
-const deleteDilFromDB = async (dil_kodu) => {
+const deleteDilFromDB = async (dil_kodu,firma_kodu) => {
     const pool = await sql.connect(config);
     const result = await pool.request()
         .input('LANCODE', sql.VarChar, dil_kodu)
+        .input('COMCODE',sql.VarChar,firma_kodu)
         .execute('sp_DeleteDil');
     return result.rowsAffected[0];
 };

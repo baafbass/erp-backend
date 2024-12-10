@@ -10,9 +10,9 @@ const {
 } = require('../../controllers/kontrolT/dil.controller');
 
 router.get('',getAllDil);
-router.get('/:id', getDil);
+router.get('/:dil_kodu/:firma_kodu', getDil);
 router.post('/', createDil);
-router.put('/:id', updateDil);
-router.delete('/:id', deleteDil);
+router.put('/', updateDil);
+router.delete('/:dil_kodu/:firma_kodu', deleteDil);
 
 module.exports = router;

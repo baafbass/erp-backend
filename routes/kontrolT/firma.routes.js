@@ -10,9 +10,9 @@ const {
 } = require('../../controllers/kontrolT/firma.controller')
 
 router.get('',getAllFirma);
-router.get('/:id', getFirma);
+router.get('/:firma_kodu', getFirma);
 router.post('/', createFirma);
-router.put('/:id', updateFirma);
-router.delete('/:id', deleteFirma);
+router.put('/', updateFirma);
+router.delete('/:firma_kodu', deleteFirma);
 
 module.exports = router;
