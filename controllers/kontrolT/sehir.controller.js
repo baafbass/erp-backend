@@ -1,10 +1,22 @@
 const {
+    getAllSehirFromDB,
     getSehirFromDB,
     createSehirFromDB,
     updateSehirFromDB,
     deleteSehirFromDB
 } = require('../../repositories/kontrolT/sehir.repository')
 
+const getAllSehir = async (req, res) => {
+    try {
+        const sehirler = await getAllSehirFromDB();
+        res.status(200).json({
+            status:'OK',
+            sehirler
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
 
 const getSehir = async (req, res) => {
     try {
@@ -54,6 +66,7 @@ const deleteSehir = async (req, res) => {
 };
 
 module.exports = {
+    getAllSehir,
     getSehir,
     createSehir,
     updateSehir,

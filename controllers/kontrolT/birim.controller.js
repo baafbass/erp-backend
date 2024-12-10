@@ -1,10 +1,22 @@
 const {
+    getAllBirimFromDB,
     getBirimFromDB,
     createBirimFromDB,
     updateBirimFromDB,
     deleteBirimFromDB
 } = require('../../repositories/kontrolT/birim.repository')
 
+const getAllBirim = async (req, res) => {
+    try {
+        const birimler = await getAllBirimFromDB();
+        res.status(200).json({
+            status:"OK",
+            birimler,
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
 
 const getBirim = async (req, res) => {
     try {
@@ -54,6 +66,7 @@ const deleteBirim = async (req, res) => {
 };
 
 module.exports = {
+    getAllBirim,
     getBirim,
     createBirim,
     updateBirim,

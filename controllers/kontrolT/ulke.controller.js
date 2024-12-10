@@ -1,10 +1,22 @@
 const {
+    getAllUlkeFromDB,
     getUlkeFromDB,
     createUlkeFromDB,
     updateUlkeFromDB,
     deleteUlkeFromDB
 } = require('../../repositories/kontrolT/ulke.repository')
 
+const getAllUlke = async (req, res) => {
+    try {
+        const ulkeler = await getAllUlkeFromDB();
+        res.status(200).json({
+            status:'OK',
+            ulkeler
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
 
 const getUlke = async (req, res) => {
     try {
@@ -54,6 +66,7 @@ const deleteUlke = async (req, res) => {
 };
 
 module.exports = {
+    getAllUlke,
     getUlke,
     createUlke,
     updateUlke,

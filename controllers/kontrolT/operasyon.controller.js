@@ -1,10 +1,22 @@
 const {
+    getAllOperasyonFromDB,
     getOperasyonFromDB,
     createOperasyonFromDB,
     updateOperasyonFromDB,
     deleteOperasyonFromDB
 } = require('../../repositories/kontrolT/operasyon.repository')
 
+const getAllOperasyon = async (req, res) => {
+    try {
+        const operasyonlar = await getAllOperasyonFromDB();
+        res.status(200).json({
+            status:'OK',
+            operasyonlar
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
 
 const getOperasyon = async (req, res) => {
     try {
@@ -54,6 +66,7 @@ const deleteOperasyon = async (req, res) => {
 };
 
 module.exports = {
+    getAllOperasyon,
     getOperasyon,
     createOperasyon,
     updateOperasyon,

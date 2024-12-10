@@ -1,9 +1,22 @@
 const {
+    getAllDilFromDB,
     getDilFromDB,
     createDilFromDB,
     updateDilFromDB,
     deleteDilFromDB
 } = require('../../repositories/kontrolT/dil.repository')
+
+const getAllDil = async (req, res) => {
+    try {
+        const diller = await getAllDilFromDB();
+        res.status(200).json({
+            status:"OK",
+            diller,
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
 
 
 const getDil = async (req, res) => {
@@ -54,6 +67,7 @@ const deleteDil = async (req, res) => {
 };
 
 module.exports = {
+    getAllDil,
     getDil,
     createDil,
     updateDil,

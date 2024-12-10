@@ -1,6 +1,12 @@
 const sql = require('mssql');
 const config = require('../../config/database');
 
+const getAllDilFromDB = async () => {
+    const pool = await sql.connect(config);
+    const result = await pool.request().execute('sp_GetAllDil');
+    return result.recordset;
+};
+
 const getDilFromDB = async (dil_kodu) => {
     const pool = await sql.connect(config);
     const result = await pool.request()
@@ -37,6 +43,7 @@ const deleteDilFromDB = async (dil_kodu) => {
 };
 
 module.exports = {
+    getAllDilFromDB,
     getDilFromDB,
     createDilFromDB,
     updateDilFromDB,

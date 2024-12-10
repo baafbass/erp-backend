@@ -1,6 +1,12 @@
 const sql = require('mssql');
 const config = require('../../config/database');
 
+const getAllUrunAgaciFromDB = async () => {
+    const pool = await sql.connect(config);
+    const result = await pool.request().execute('sp_GetAllUrunAgaci');
+    return result.recordset;
+};
+
 const getUrunAgaciFromDB = async (urunAgaci) => {
     const pool = await sql.connect(config);
     const result = await pool.request()
@@ -39,6 +45,7 @@ const deleteUrunAgaciFromDB = async (urun_agaci) => {
 };
 
 module.exports = {
+    getAllUrunAgaciFromDB,
     getUrunAgaciFromDB,
     createUrunAgaciFromDB,
     updateUrunAgaciFromDB,

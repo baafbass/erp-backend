@@ -1,6 +1,12 @@
 const sql = require('mssql');
 const config = require('../../config/database');
 
+const getAllSehirFromDB = async () => {
+    const pool = await sql.connect(config);
+    const result = await pool.request().execute('sp_GetAllSehir');
+    return result.recordset;
+};
+
 const getSehirFromDB = async (rota) => {
     const pool = await sql.connect(config);
     const result = await pool.request()
@@ -39,6 +45,7 @@ const deleteSehirFromDB = async (sehir_kodu) => {
 };
 
 module.exports = {
+    getAllSehirFromDB,
     getSehirFromDB,
     createSehirFromDB,
     updateSehirFromDB,

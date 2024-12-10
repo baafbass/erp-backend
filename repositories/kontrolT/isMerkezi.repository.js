@@ -1,6 +1,12 @@
 const sql = require('mssql');
 const config = require('../../config/database');
 
+const getAllIsMerkeziFromDB = async () => {
+    const pool = await sql.connect(config);
+    const result = await pool.request().execute('sp_GetAllIsMerkezi');
+    return result.recordset;
+};
+
 const getIsMerkeziFromDB = async (is_merkezi) => {
     const pool = await sql.connect(config);
     const result = await pool.request()
@@ -39,6 +45,7 @@ const deleteIsMerkeziFromDB = async (isMerkezi_kodu) => {
 };
 
 module.exports = {
+    getAllIsMerkeziFromDB,
     getIsMerkeziFromDB,
     createIsMerkeziFromDB,
     updateIsMerkeziFromDB,

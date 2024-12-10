@@ -1,9 +1,22 @@
 const {
+    getAllUrunAgaciFromDB,
     getUrunAgaciFromDB,
     createUrunAgaciFromDB,
     updateUrunAgaciFromDB,
     deleteUrunAgaciFromDB
 } = require('../../repositories/kontrolT/urunAgaci.repository')
+
+const getAllUrunAgaci = async (req, res) => {
+    try {
+        const urunAgacilari = await getAllUrunAgaciFromDB();
+        res.status(200).json({
+            status:'OK',
+            urunAgacilari
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
 
 
 const getUrunAgaci = async (req, res) => {
@@ -54,6 +67,7 @@ const deleteUrunAgaci = async (req, res) => {
 };
 
 module.exports = {
+    getAllUrunAgaci,
     getUrunAgaci,
     createUrunAgaci,
     updateUrunAgaci,

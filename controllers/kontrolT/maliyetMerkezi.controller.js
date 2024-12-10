@@ -1,10 +1,22 @@
 const {
+    getAllMaliyetMerkeziFromDB,
     getMaliyetMerkeziFromDB,
     createMaliyetMerkeziFromDB,
     updateMaliyetMerkeziFromDB,
     deleteMaliyetMerkeziFromDB
 } = require('../../repositories/kontrolT/maliyetMerkezi.repository')
 
+const getAllMaliyetMerkezi = async (req, res) => {
+    try {
+        const maliyetMerkezleri = await getAllMaliyetMerkeziFromDB();
+        res.status(200).json({
+            status:"OK",
+            maliyetMerkezleri,
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
 
 const getMaliyetMerkezi = async (req, res) => {
     try {
@@ -54,6 +66,7 @@ const deleteMaliyetMerkezi = async (req, res) => {
 };
 
 module.exports = {
+    getAllMaliyetMerkezi,
     getMaliyetMerkezi,
     createMaliyetMerkezi,
     updateMaliyetMerkezi,

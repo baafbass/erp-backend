@@ -1,6 +1,13 @@
 const sql = require('mssql');
 const config = require('../../config/database');
 
+const getAllOperasyonFromDB = async () => {
+    const pool = await sql.connect(config);
+    const result = await pool.request().execute('sp_GetAllOperasyon');
+    return result.recordset;
+};
+
+
 const getOperasyonFromDB = async (operasyon) => {
     const pool = await sql.connect(config);
     const result = await pool.request()
@@ -39,6 +46,7 @@ const deleteOperasyonFromDB = async (operasyon) => {
 };
 
 module.exports = {
+    getAllOperasyonFromDB,
     getOperasyonFromDB,
     createOperasyonFromDB,
     updateOperasyonFromDB,

@@ -1,6 +1,12 @@
 const sql = require('mssql');
 const config = require('../../config/database');
 
+const getAllUlkeFromDB = async () => {
+    const pool = await sql.connect(config);
+    const result = await pool.request().execute('sp_GetAllUlke');
+    return result.recordset;
+};
+
 const getUlkeFromDB = async (ulke) => {
     const pool = await sql.connect(config);
     const result = await pool.request()
@@ -37,6 +43,7 @@ const deleteUlkeFromDB = async (ulke_kodu) => {
 };
 
 module.exports = {
+    getAllUlkeFromDB,
     getUlkeFromDB,
     createUlkeFromDB,
     updateUlkeFromDB,

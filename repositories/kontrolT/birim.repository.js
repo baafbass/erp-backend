@@ -1,6 +1,12 @@
 const sql = require('mssql');
 const config = require('../../config/database');
 
+const getAllBirimFromDB = async () => {
+    const pool = await sql.connect(config);
+    const result = await pool.request().execute('sp_GetAllBirim');
+    return result.recordset;
+};
+
 const getBirimFromDB = async (birim_kodu) => {
     const pool = await sql.connect(config);
     const result = await pool.request()
@@ -41,6 +47,7 @@ const deleteBirimFromDB = async (birim_kodu) => {
 };
 
 module.exports = {
+    getAllBirimFromDB,
     getBirimFromDB,
     createBirimFromDB,
     updateBirimFromDB,

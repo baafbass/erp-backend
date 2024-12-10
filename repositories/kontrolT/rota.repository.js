@@ -1,6 +1,12 @@
 const sql = require('mssql');
 const config = require('../../config/database');
 
+const getAllRotaFromDB = async () => {
+    const pool = await sql.connect(config);
+    const result = await pool.request().execute('sp_GetAllRota');
+    return result.recordset;
+};
+
 const getRotaFromDB = async (rota) => {
     const pool = await sql.connect(config);
     const result = await pool.request()
@@ -39,6 +45,7 @@ const deleteRotaFromDB = async (rota) => {
 };
 
 module.exports = {
+    getAllRotaFromDB,
     getRotaFromDB,
     createRotaFromDB,
     updateRotaFromDB,

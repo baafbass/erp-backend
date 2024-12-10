@@ -1,10 +1,23 @@
 const {
+    getAllRotaFromDB,
     getRotaFromDB,
     createRotaFromDB,
     updateRotaFromDB,
     deleteRotaFromDB
 } = require('../../repositories/kontrolT/rota.repository')
 
+
+const getAllRota = async (req, res) => {
+    try {
+        const rotalar = await getAllRotaFromDB();
+        res.status(200).json({
+            status:'OK',
+            rotalar
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
 
 const getRota = async (req, res) => {
     try {
@@ -54,6 +67,7 @@ const deleteRota = async (req, res) => {
 };
 
 module.exports = {
+    getAllRota,
     getRota,
     createRota,
     updateRota,

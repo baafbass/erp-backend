@@ -36,7 +36,6 @@ const getFirma = async (req, res) => {
 
 const createFirma = async (req, res) => {
     const { firma_kodu,firma_adi,firma_adresi_1,firma_adresi_2,sehir_kodu,ulke_kodu } = req.body;
-    console.log("controller",firma_kodu,firma_adi,firma_adresi_1,firma_adresi_2,sehir_kodu,ulke_kodu)
     try {
         await createFirmaFromDB(firma_kodu,firma_adi,firma_adresi_1,firma_adresi_2,sehir_kodu,ulke_kodu);
         res.status(201).json({

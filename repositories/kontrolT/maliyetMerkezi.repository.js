@@ -1,6 +1,12 @@
 const sql = require('mssql');
 const config = require('../../config/database');
 
+const getAllMaliyetMerkeziFromDB = async () => {
+    const pool = await sql.connect(config);
+    const result = await pool.request().execute('sp_GetAllMerkeziMerkezi');
+    return result.recordset;
+};
+
 const getMaliyetMerkeziFromDB = async (maliyet_merkezi) => {
     const pool = await sql.connect(config);
     const result = await pool.request()
@@ -39,6 +45,7 @@ const deleteMaliyetMerkeziFromDB = async (maliyetMerkezi) => {
 };
 
 module.exports = {
+    getAllMaliyetMerkeziFromDB,
     getMaliyetMerkeziFromDB,
     createMaliyetMerkeziFromDB,
     updateMaliyetMerkeziFromDB,

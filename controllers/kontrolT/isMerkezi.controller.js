@@ -1,9 +1,22 @@
 const {
+    getAllIsMerkeziFromDB,
     getIsMerkeziFromDB,
     createIsMerkeziFromDB,
     updateIsMerkeziFromDB,
     deleteIsMerkeziFromDB
 } = require('../../repositories/kontrolT/isMerkezi.repository')
+
+const getAllIsMerkezi = async (req, res) => {
+    try {
+        const isMerkezleri = await getAllIsMerkeziFromDB();
+        res.status(200).json({
+            status:"OK",
+            isMerkezleri,
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
 
 
 const getIsMerkezi = async (req, res) => {
@@ -54,6 +67,7 @@ const deleteIsMerkezi = async (req, res) => {
 };
 
 module.exports = {
+    getAllIsMerkezi,
     getIsMerkezi,
     createIsMerkezi,
     updateIsMerkezi,

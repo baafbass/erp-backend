@@ -8,8 +8,11 @@ const {
 
 const getAllMalzeme = async (req, res) => {
     try {
-        const malzeme = await getAllMalzemeFromDB();
-        res.json(malzeme);
+        const malzemeler = await getAllMalzemeFromDB();
+        res.status(200).json({
+            status:'OK',
+            malzemeler
+        });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
