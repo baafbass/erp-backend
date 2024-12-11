@@ -9,10 +9,10 @@ const {
     updateMalzeme
 } = require('../../controllers/kontrolT/malzeme.controller');
 
-router.get('/', getAllMalzeme);
-router.get('/:id', getMalzeme);
+router.get('', getAllMalzeme);
+router.get('/:malzeme_tipi/:firma_kodu', getMalzeme);
 router.post('/', createMalzeme);
-router.put('/:id', updateMalzeme);
-router.delete('/:id', deleteMalzeme);
+router.put('/', updateMalzeme);
+router.delete('/:malzeme_tipi/:firma_kodu', deleteMalzeme);
 
 module.exports = router;
