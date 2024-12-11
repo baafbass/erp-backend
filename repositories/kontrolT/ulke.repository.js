@@ -7,10 +7,11 @@ const getAllUlkeFromDB = async () => {
     return result.recordset;
 };
 
-const getUlkeFromDB = async (ulke) => {
+const getUlkeFromDB = async (ulke_kodu,firma_kodu) => {
     const pool = await sql.connect(config);
     const result = await pool.request()
-        .input('DOCTYPE', sql.VarChar, ulke)
+        .input('COUNTRYCODE', sql.VarChar, ulke_kodu)
+        .input('COMCODE',sql.VarChar,firma_kodu)
         .execute('sp_GetUlke');
     return result.recordset[0];
 };
@@ -34,10 +35,11 @@ const updateUlkeFromDB = async (firma_kodu,ulke_kodu,ulke_adi) => {
     return result.rowsAffected[0];
 };
 
-const deleteUlkeFromDB = async (ulke_kodu) => {
+const deleteUlkeFromDB = async (ulke_kodu,firma_kodu) => {
     const pool = await sql.connect(config);
     const result = await pool.request()
         .input('COUNTRYCODE', sql.VarChar, ulke_kodu)
+        .input('COMCODE',sql.VarChar,firma_kodu)
         .execute('sp_DeleteUlke');
     return result.rowsAffected[0];
 };

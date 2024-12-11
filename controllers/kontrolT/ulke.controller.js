@@ -19,12 +19,16 @@ const getAllUlke = async (req, res) => {
 };
 
 const getUlke = async (req, res) => {
+    const {ulke_kodu,firma_kodu} = req.params;
     try {
-        const ulke = await getUlkeFromDB(req.params.id);
+        const ulke = await getUlkeFromDB(ulke_kodu,firma_kodu);
         if (!ulke) {
             return res.status(404).json({ message: 'ulke not found' });
         }
-        res.json(ulke);
+        res.status(200).json({
+            status:"OK",
+            ulke
+        });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -34,7 +38,9 @@ const createUlke = async (req, res) => {
     const { firma_kodu,ulke_kodu,ulke_adi } = req.body;
     try {
         await createUlkeFromDB(firma_kodu,ulke_kodu,ulke_adi);
-        res.status(201).json({ message: 'Ulke created successfully' });
+        res.status(201).json({ 
+            status:"OK",
+            message: 'Ulke created successfully' });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -47,19 +53,28 @@ const updateUlke = async (req, res) => {
         if (updatedUlke === 0) {
             return res.status(404).json({ message: 'Ulke not found' });
         }
-        res.json({ message: 'Ulke updated successfully' });
+        res.status(200).json({
+        status:"OK", 
+        message: 'Ulke updated successfully' 
+    });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 };
 
 const deleteUlke = async (req, res) => {
+    const {ulke_kodu,firma_kodu} = req.params;
+    console.log(ulke_kodu,firma_kodu);
     try {
-        const deletedUlke = await deleteUlkeFromDB(req.params.id);
+        const deletedUlke = await deleteUlkeFromDB(ulke_kodu,firma_kodu);
+        console.log('deleted ulke',deleteUlke);
         if (deletedUlke === 0) {
             return res.status(404).json({ message: 'Ulke not found' });
         }
-        res.json({ message: 'Ulke deleted successfully' });
+        res.json({
+            status:"OK", 
+            message: 'Ulke deleted successfully' 
+        });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

@@ -7,10 +7,11 @@ const getAllSehirFromDB = async () => {
     return result.recordset;
 };
 
-const getSehirFromDB = async (rota) => {
+const getSehirFromDB = async (sehir_kodu,firma_kodu) => {
     const pool = await sql.connect(config);
     const result = await pool.request()
-        .input('DOCTYPE', sql.VarChar, sehir)
+        .input('CITYCODE', sql.VarChar, sehir_kodu)
+        .input('COMCODE',sql.VarChar,firma_kodu)
         .execute('sp_GetSehir');
     return result.recordset[0];
 };
@@ -36,10 +37,11 @@ const updateSehirFromDB = async (firma_kodu,sehir_kodu,sehir_adi,ulke_kodu) => {
     return result.rowsAffected[0];
 };
 
-const deleteSehirFromDB = async (sehir_kodu) => {
+const deleteSehirFromDB = async (sehir_kodu,firma_kodu) => {
     const pool = await sql.connect(config);
     const result = await pool.request()
         .input('CITYCODE', sql.VarChar, sehir_kodu)
+        .input('COMCODE',sql.VarChar,firma_kodu)
         .execute('sp_DeleteSehir');
     return result.rowsAffected[0];
 };

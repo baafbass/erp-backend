@@ -19,12 +19,16 @@ const getAllSehir = async (req, res) => {
 };
 
 const getSehir = async (req, res) => {
+    const {sehir_kodu,firma_kodu} = req.params;
     try {
-        const sehir = await getSehirFromDB(req.params.id);
+        const sehir = await getSehirFromDB(sehir_kodu,firma_kodu);
         if (!sehir) {
             return res.status(404).json({ message: 'sehir not found' });
         }
-        res.json(sehir);
+        res.status(200).json({
+            status:"OK",
+            sehir
+        });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -34,7 +38,10 @@ const createSehir = async (req, res) => {
     const { firma_kodu,sehir_kodu,sehir_adi,ulke_kodu } = req.body;
     try {
         await createSehirFromDB(firma_kodu,sehir_kodu,sehir_adi,ulke_kodu);
-        res.status(201).json({ message: 'Sehir created successfully' });
+        res.status(201).json({ 
+            status:"OK",
+            message: 'Sehir created successfully'
+             });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -47,19 +54,26 @@ const updateSehir = async (req, res) => {
         if (updatedSehir === 0) {
             return res.status(404).json({ message: 'Sehir not found' });
         }
-        res.json({ message: 'Sehir updated successfully' });
+        res.status(200).json({ 
+            status:"OK",
+            message: 'Sehir updated successfully'
+             });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 };
 
 const deleteSehir = async (req, res) => {
+    const {sehir_kodu,firma_kodu} = req.params;
     try {
-        const deletedSehir = await deleteSehirFromDB(req.params.id);
+        const deletedSehir = await deleteSehirFromDB(sehir_kodu,firma_kodu);
         if (deletedSehir === 0) {
             return res.status(404).json({ message: 'Sehir not found' });
         }
-        res.json({ message: 'Sehir deleted successfully' });
+        res.status(200).json({ 
+            status:"OK",
+            message: 'Sehir deleted successfully'
+             });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

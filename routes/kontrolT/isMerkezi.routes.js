@@ -10,9 +10,9 @@ const {
 } = require('../../controllers/kontrolT/isMerkezi.controller')
 
 router.get('',getAllIsMerkezi)
-router.get('/:id', getIsMerkezi);
+router.get('/:is_merkezi/:firma_kodu', getIsMerkezi);
 router.post('/', createIsMerkezi);
-router.put('/:id', updateIsMerkezi);
-router.delete('/:id', deleteIsMerkezi);
+router.put('/', updateIsMerkezi);
+router.delete('/:is_merkezi/:firma_kodu', deleteIsMerkezi);
 
 module.exports = router;

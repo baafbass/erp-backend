@@ -7,10 +7,11 @@ const getAllIsMerkeziFromDB = async () => {
     return result.recordset;
 };
 
-const getIsMerkeziFromDB = async (is_merkezi) => {
+const getIsMerkeziFromDB = async (is_merkezi,firma_kodu) => {
     const pool = await sql.connect(config);
     const result = await pool.request()
         .input('DOCTYPE', sql.VarChar, is_merkezi)
+        .input('COMCODE',sql.VarChar,firma_kodu)
         .execute('sp_GetIsMerkezi');
     return result.recordset[0];
 };
@@ -36,10 +37,11 @@ const updateIsMerkeziFromDB = async (firma_kodu,is_merkezi,is_merkezi_aciklamasi
     return result.rowsAffected[0];
 };
 
-const deleteIsMerkeziFromDB = async (isMerkezi_kodu) => {
+const deleteIsMerkeziFromDB = async (is_merkezi,firma_kodu) => {
     const pool = await sql.connect(config);
     const result = await pool.request()
-        .input('DOCTYPE', sql.VarChar, isMerkezi_kodu)
+        .input('DOCTYPE', sql.VarChar, is_merkezi)
+        .input('COMCODE',sql.VarChar,firma_kodu)
         .execute('sp_DeleteIsMerkezi');
     return result.rowsAffected[0];
 };

@@ -10,9 +10,9 @@ const {
 } = require('../../controllers/kontrolT/ulke.controller')
 
 router.get('',getAllUlke);
-router.get('/:id', getUlke);
+router.get('/:ulke_kodu/:firma_kodu', getUlke);
 router.post('/', createUlke);
-router.put('/:id', updateUlke);
-router.delete('/:id', deleteUlke);
+router.put('/', updateUlke);
+router.delete('/:ulke_kodu/:firma_kodu', deleteUlke);
 
 module.exports = router;

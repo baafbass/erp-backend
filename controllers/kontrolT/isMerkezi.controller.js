@@ -9,6 +9,7 @@ const {
 const getAllIsMerkezi = async (req, res) => {
     try {
         const isMerkezleri = await getAllIsMerkeziFromDB();
+        console.log('ismerkezi',isMerkezleri)
         res.status(200).json({
             status:"OK",
             isMerkezleri,
@@ -20,12 +21,21 @@ const getAllIsMerkezi = async (req, res) => {
 
 
 const getIsMerkezi = async (req, res) => {
+    const {is_merkezi,firma_kodu} = req.params;
     try {
-        const isMerkezi = await getIsMerkeziFromDB(req.params.id);
+        const isMerkezi = await getIsMerkeziFromDB(is_merkezi,firma_kodu);
         if (!isMerkezi) {
             return res.status(404).json({ message: 'Is Merkezi not found' });
         }
-        res.json(isMerkezi);
+
+        const transformedIsMerkezi = {
+            ...isMerkezi,
+            ISPASSIVE: isMerkezi.ISPASSIVE === "Evet" ? "1":"0"
+        }
+        res.status(200).json({
+            status:"OK",
+            transformedIsMerkezi
+        });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -33,9 +43,19 @@ const getIsMerkezi = async (req, res) => {
 
 const createIsMerkezi = async (req, res) => {
     const { firma_kodu,is_merkezi,is_merkezi_aciklamasi,passif_mi } = req.body;
+
+    if(!firma_kodu || !is_merkezi || !is_merkezi_aciklamasi){
+        return res.status(400).json({
+            message:'Invalid Inputs',
+        })
+    }
+
     try {
         await createIsMerkeziFromDB(firma_kodu,is_merkezi,is_merkezi_aciklamasi,passif_mi);
-        res.status(201).json({ message: 'Is Merkezi created successfully' });
+        res.status(201).json({ 
+            status:"OK",
+            message: 'Is Merkezi created successfully'
+             });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -48,19 +68,26 @@ const updateIsMerkezi = async (req, res) => {
         if (updatedIsMerkezi === 0) {
             return res.status(404).json({ message: 'Is Merkezi not found' });
         }
-        res.json({ message: 'Is Merkezi updated successfully' });
+        res.json({ 
+            status:"OK",
+            message: 'Is Merkezi updated successfully'
+             });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 };
 
 const deleteIsMerkezi = async (req, res) => {
+    const {is_merkezi,firma_kodu} = req.params;
     try {
-        const deletedIsMerkezi = await deleteIsMerkeziFromDB(req.params.id);
+        const deletedIsMerkezi = await deleteIsMerkeziFromDB(is_merkezi,firma_kodu);
         if (deletedIsMerkezi === 0) {
             return res.status(404).json({ message: 'Is Merkezi not found' });
         }
-        res.json({ message: 'Is Merkezi deleted successfully' });
+        res.status(200).json({ 
+            status:"OK",
+            message: 'Is Merkezi deleted successfully' 
+        });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
