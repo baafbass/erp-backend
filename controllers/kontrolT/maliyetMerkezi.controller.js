@@ -41,6 +41,11 @@ const getMaliyetMerkezi = async (req, res) => {
 
 const createMaliyetMerkezi = async (req, res) => {
     const { firma_kodu,maliyet_merkezi,maliyet_merkezi_aciklamasi,passif_mi } = req.body;
+    if(!firma_kodu || !maliyet_merkezi || !maliyet_merkezi_aciklamasi){
+        return res.status(400).json({
+            message:'Invalid Inputs',
+        })
+    }
     try {
         await createMaliyetMerkeziFromDB(firma_kodu,maliyet_merkezi,maliyet_merkezi_aciklamasi,passif_mi);
         res.status(201).json({ 
@@ -54,6 +59,11 @@ const createMaliyetMerkezi = async (req, res) => {
 
 const updateMaliyetMerkezi = async (req, res) => {
     const {firma_kodu,maliyet_merkezi,maliyet_merkezi_aciklamasi,passif_mi } = req.body;
+    if(!maliyet_merkezi_aciklamasi){
+        return res.status(400).json({
+            message:'Invalid Inputs',
+        })
+    }
     try {
         const updatedMaliyetMerkezi = await updateMaliyetMerkeziFromDB(firma_kodu,maliyet_merkezi,maliyet_merkezi_aciklamasi,passif_mi);
         if (updatedMaliyetMerkezi === 0) {

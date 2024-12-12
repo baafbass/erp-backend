@@ -63,6 +63,11 @@ const createIsMerkezi = async (req, res) => {
 
 const updateIsMerkezi = async (req, res) => {
     const {firma_kodu,is_merkezi,is_merkezi_aciklamasi,passif_mi } = req.body;
+    if(!is_merkezi_aciklamasi){
+        return res.status(400).json({
+            message:'Invalid Inputs',
+        })
+    }
     try {
         const updatedIsMerkezi = await updateIsMerkeziFromDB(firma_kodu,is_merkezi,is_merkezi_aciklamasi,passif_mi);
         if (updatedIsMerkezi === 0) {

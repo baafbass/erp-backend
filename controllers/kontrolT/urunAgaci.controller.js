@@ -44,7 +44,11 @@ const getUrunAgaci = async (req, res) => {
 
 const createUrunAgaci = async (req, res) => {
     const { firma_kodu,urun_agaci,urun_agaci_aciklama,passif_mi } = req.body;
-    console.log(firma_kodu,urun_agaci,urun_agaci_aciklama,passif_mi)
+    if(!firma_kodu || !urun_agaci || !urun_agaci_aciklama){
+        return res.status(400).json({
+            message:'Invalid Inputs',
+        })
+    }
     try {
         await createUrunAgaciFromDB(firma_kodu,urun_agaci,urun_agaci_aciklama,passif_mi);
         res.status(201).json({ 
@@ -57,6 +61,11 @@ const createUrunAgaci = async (req, res) => {
 
 const updateUrunAgaci = async (req, res) => {
     const {firma_kodu,urun_agaci,urun_agaci_aciklama,passif_mi } = req.body;
+    if(!urun_agaci_aciklama){
+        return res.status(400).json({
+            message:'Invalid Inputs',
+        })
+    }
     try {
         const updatedUrunAgaci = await updateUrunAgaciFromDB(firma_kodu,urun_agaci,urun_agaci_aciklama,passif_mi);
         if (updatedUrunAgaci === 0) {

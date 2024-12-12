@@ -25,7 +25,6 @@ const getMalzeme = async (req, res) => {
         if (!malzeme) {
             return res.status(404).json({ message: 'Malzeme not found' });
         }
-        console.log('--->',malzeme);
 
         const transformedMalzeme = {
             ...malzeme,
@@ -43,6 +42,11 @@ const getMalzeme = async (req, res) => {
 
 const createMalzeme = async (req, res) => {
     const { firma_kodu, malzeme, malzeme_aciklamasi, passif_mi } = req.body;
+    if(!firma_kodu || !malzeme || !malzeme_aciklamasi){
+        return res.status(400).json({
+            message:'Invalid Inputs',
+        })
+    }
     try {
         await createMalzemeFromDB(firma_kodu, malzeme, malzeme_aciklamasi, passif_mi);
         res.status(201).json({
@@ -56,6 +60,11 @@ const createMalzeme = async (req, res) => {
 
 const updateMalzeme = async (req, res) => {
     const { firma_kodu, malzeme, malzeme_aciklamasi, passif_mi } = req.body;
+    if(!malzeme_aciklamasi){
+        return res.status(400).json({
+            message:'Invalid Inputs',
+        })
+    }
     try {
         const updatedMalzeme = await updateMalzemeFromDB(firma_kodu, malzeme, malzeme_aciklamasi, passif_mi);
         if (updatedMalzeme === 0) {

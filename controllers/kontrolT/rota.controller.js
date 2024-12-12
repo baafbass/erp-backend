@@ -41,6 +41,11 @@ const getRota = async (req, res) => {
 
 const createRota = async (req, res) => {
     const { firma_kodu,rota,rota_aciklamasi,passif_mi } = req.body;
+    if(!firma_kodu || !rota || !rota_aciklamasi){
+        return res.status(400).json({
+            message:'Invalid Inputs',
+        })
+    }
     try {
         await createRotaFromDB(firma_kodu,rota,rota_aciklamasi,passif_mi);
         res.status(201).json({ 
@@ -54,6 +59,11 @@ const createRota = async (req, res) => {
 
 const updateRota = async (req, res) => {
     const {firma_kodu,rota,rota_aciklamasi,passif_mi } = req.body;
+    if(!rota_aciklamasi){
+        return res.status(400).json({
+            message:'Invalid Inputs',
+        })
+    }
     try {
         const updatedRota = await updateRotaFromDB(firma_kodu,rota,rota_aciklamasi,passif_mi);
         if (updatedRota === 0) {

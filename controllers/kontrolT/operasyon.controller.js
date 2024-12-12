@@ -42,6 +42,11 @@ const getOperasyon = async (req, res) => {
 
 const createOperasyon = async (req, res) => {
     const { firma_kodu,operasyon,operasyon_aciklamasi,passif_mi } = req.body;
+    if(!firma_kodu || !operasyon || ! operasyon_aciklamasi){
+        return res.status(400).json({
+            message:'Invalid Inputs',
+        })
+    }
     try {
         await createOperasyonFromDB(firma_kodu,operasyon,operasyon_aciklamasi,passif_mi);
         res.status(201).json({ 
@@ -55,6 +60,11 @@ const createOperasyon = async (req, res) => {
 
 const updateOperasyon = async (req, res) => {
     const {firma_kodu,operasyon,operasyon_aciklamasi,passif_mi } = req.body;
+    if(!operasyon_aciklamasi){
+        return res.status(400).json({
+            message:'Invalid Inputs',
+        })
+    }
     try {
         const updatedOperasyon = await updateOperasyonFromDB(firma_kodu,operasyon,operasyon_aciklamasi,passif_mi);
         if (updatedOperasyon === 0) {

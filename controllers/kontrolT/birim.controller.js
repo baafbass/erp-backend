@@ -10,8 +10,6 @@ const getAllBirim = async (req, res) => {
     try {
         const birimler = await getAllBirimFromDB();
         
-        console.log('type',typeof birimler[0].ISMAINUNIT);
-
         const transformedBirimler  = birimler.map((birim)=>({
             ...birim,
             ISMAINUNIT: birim.ISMAINUNIT === 1 ? "Evet": "Hayir",
@@ -50,8 +48,11 @@ const getBirim = async (req, res) => {
 
 const createBirim = async (req, res) => {
     const { firma_kodu, birim_kodu, birim_adi, ana_agirlik_birimi, ana_birim_kodu } = req.body;
-    console.log(firma_kodu, birim_kodu, birim_adi, ana_agirlik_birimi, ana_birim_kodu)
-    console.log(typeof ana_agirlik_birimi);
+    if(!firma_kodu || !birim_kodu || !birim_adi){
+        return res.status(400).json({
+        message:'Invalid Inputs',
+        })
+    }
     try {
         await createBirimFromDB(firma_kodu, birim_kodu, birim_adi, ana_agirlik_birimi, ana_birim_kodu);
         res.status(201).json({
@@ -65,6 +66,11 @@ const createBirim = async (req, res) => {
 
 const updateBirim = async (req, res) => {
     const {firma_kodu,birim_kodu, birim_adi, ana_agirlik_birimi, ana_birim_kodu } = req.body;
+    if(!birim_adi){
+        return res.status(400).json({
+            message:'Invalid Inputs'
+        })
+    }
     try {
         const updatedBirim = await updateBirimFromDB(firma_kodu,birim_kodu, birim_adi, ana_agirlik_birimi, ana_birim_kodu);
         if (updatedBirim === 0) {

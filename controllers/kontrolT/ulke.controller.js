@@ -36,6 +36,11 @@ const getUlke = async (req, res) => {
 
 const createUlke = async (req, res) => {
     const { firma_kodu,ulke_kodu,ulke_adi } = req.body;
+    if(!firma_kodu || !ulke_kodu || !ulke_adi){
+      return res.status(400).json({
+        message:'Invalid Inputs',
+      })
+    }
     try {
         await createUlkeFromDB(firma_kodu,ulke_kodu,ulke_adi);
         res.status(201).json({ 
@@ -48,6 +53,11 @@ const createUlke = async (req, res) => {
 
 const updateUlke = async (req, res) => {
     const {firma_kodu,ulke_kodu,ulke_adi } = req.body;
+    if(!ulke_adi){
+        return res.status(400).json({
+            message:'Invalid Inputs',
+        })
+    }
     try {
         const updatedUlke = await updateUlkeFromDB(firma_kodu,ulke_kodu,ulke_adi);
         if (updatedUlke === 0) {

@@ -20,7 +20,7 @@ const getAllDil = async (req, res) => {
 
 
 const getDil = async (req, res) => {
-       const {dil_kodu,firma_kodu} = req.params;
+    const {dil_kodu,firma_kodu} = req.params;
     try {
         const dil = await getDilFromDB(dil_kodu,firma_kodu);
         if (!dil) {
@@ -37,6 +37,11 @@ const getDil = async (req, res) => {
 
 const createDil = async (req, res) => {
     const { firma_kodu, dil_kodu, dil_adi } = req.body;
+    if (!firma_kodu || !dil_kodu || !dil_adi){
+        return res.status(400).json({
+            message:'Invalid Inputs',
+        })
+    }
     try {
         await createDilFromDB(firma_kodu, dil_kodu, dil_adi);
         res.status(201).json({
@@ -50,6 +55,11 @@ const createDil = async (req, res) => {
 
 const updateDil = async (req, res) => {
     const {firma_kodu,dil_kodu, dil_adi } = req.body;
+    if(!dil_adi){
+        return res.status(400).json({
+            message:'Invalid Inputs',
+        })
+    }
     try {
         const updatedDil = await updateDilFromDB(firma_kodu,dil_kodu, dil_adi);
         if (updatedDil === 0) {
@@ -66,7 +76,6 @@ const updateDil = async (req, res) => {
 
 const deleteDil = async (req, res) => {
     const {dil_kodu,firma_kodu} = req.params;
-
     try {
         const deletedDil = await deleteDilFromDB(dil_kodu,firma_kodu);
         if (deletedDil === 0) {

@@ -37,6 +37,11 @@ const getFirma = async (req, res) => {
 
 const createFirma = async (req, res) => {
     const { firma_kodu,firma_adi,firma_adresi_1,firma_adresi_2,sehir_kodu,ulke_kodu } = req.body;
+    if(!firma_kodu || !firma_adi){
+        return res.status(400).json({
+            message:'Invalid Inputs',
+        })
+    }
     try {
         await createFirmaFromDB(firma_kodu,firma_adi,firma_adresi_1,firma_adresi_2,sehir_kodu,ulke_kodu);
         res.status(201).json({
@@ -49,6 +54,11 @@ const createFirma = async (req, res) => {
 
 const updateFirma = async (req, res) => {
     const {firma_kodu,firma_adi,firma_adresi_1,firma_adresi_2,sehir_kodu,ulke_kodu } = req.body;
+    if(!firma_adi){
+        return res.status(400).json({
+            message:'Invalid Inputs',
+        })
+    }
     try {
         const updatedFirma = await updateFirmaFromDB(firma_kodu,firma_adi,firma_adresi_1,firma_adresi_2,sehir_kodu,ulke_kodu);
         if (updatedFirma === 0) {
