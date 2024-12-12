@@ -7,10 +7,11 @@ const getAllRotaFromDB = async () => {
     return result.recordset;
 };
 
-const getRotaFromDB = async (rota) => {
+const getRotaFromDB = async (rota_tipi,firma_kodu) => {
     const pool = await sql.connect(config);
     const result = await pool.request()
-        .input('DOCTYPE', sql.VarChar, rota)
+        .input('DOCTYPE', sql.VarChar, rota_tipi)
+        .input('COMCODE',sql.VarChar,firma_kodu)
         .execute('sp_GetRota');
     return result.recordset[0];
 };
@@ -22,7 +23,7 @@ const createRotaFromDB = async (firma_kodu,rota,rota_aciklamasi,passif_mi) => {
         .input('DOCTYPE', sql.VarChar, rota)
         .input('DOCTYPETEXT', sql.VarChar, rota_aciklamasi)
         .input('ISPASSIVE', sql.Int, passif_mi)
-        .execute('sp_CreateOperasyon');
+        .execute('sp_CreateRota');
 };
 
 const updateRotaFromDB = async (firma_kodu,rota,rota_aciklamasi,passif_mi) => {
@@ -36,10 +37,11 @@ const updateRotaFromDB = async (firma_kodu,rota,rota_aciklamasi,passif_mi) => {
     return result.rowsAffected[0];
 };
 
-const deleteRotaFromDB = async (rota) => {
+const deleteRotaFromDB = async (rota_tipi,firma_kodu) => {
     const pool = await sql.connect(config);
     const result = await pool.request()
-        .input('DOCTYPE', sql.VarChar, rota)
+        .input('DOCTYPE', sql.VarChar, rota_tipi)
+        .input('COMCODE',sql.VarChar,firma_kodu)
         .execute('sp_DeleteRota');
     return result.rowsAffected[0];
 };

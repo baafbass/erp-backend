@@ -19,12 +19,21 @@ const getAllMaliyetMerkezi = async (req, res) => {
 };
 
 const getMaliyetMerkezi = async (req, res) => {
+    const {maliyet_merkezi,firma_kodu} = req.params;
     try {
-        const maliyetMerkezi = await getMaliyetMerkeziFromDB(req.params.id);
+        const maliyetMerkezi = await getMaliyetMerkeziFromDB(maliyet_merkezi,firma_kodu);
         if (!maliyetMerkezi) {
             return res.status(404).json({ message: 'Maliyet Merkezi not found' });
         }
-        res.json(maliyetMerkezi);
+        const transformedMaliyetMerkezi = {
+            ...maliyetMerkezi,
+            ISPASSIVE: maliyetMerkezi.ISPASSIVE === "Evet" ? "1":"0"
+        }
+
+        res.status(200).json({
+            status:"OK",
+            transformedMaliyetMerkezi
+        });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -34,7 +43,10 @@ const createMaliyetMerkezi = async (req, res) => {
     const { firma_kodu,maliyet_merkezi,maliyet_merkezi_aciklamasi,passif_mi } = req.body;
     try {
         await createMaliyetMerkeziFromDB(firma_kodu,maliyet_merkezi,maliyet_merkezi_aciklamasi,passif_mi);
-        res.status(201).json({ message: 'Maliyet Merkezi created successfully' });
+        res.status(201).json({ 
+            status:"OK",
+            message: 'Maliyet Merkezi created successfully'
+             });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -47,19 +59,26 @@ const updateMaliyetMerkezi = async (req, res) => {
         if (updatedMaliyetMerkezi === 0) {
             return res.status(404).json({ message: 'Maliyet Merkezi not found' });
         }
-        res.json({ message: 'Maliyet Merkezi updated successfully' });
+        res.status(200).json({
+            status:"OK", 
+            message: 'Maliyet Merkezi updated successfully'
+             });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 };
 
 const deleteMaliyetMerkezi = async (req, res) => {
+    const {maliyet_merkezi,firma_kodu} = req.params;
     try {
-        const deletedMaliyetMerkezi = await deleteMaliyetMerkeziFromDB(req.params.id);
+        const deletedMaliyetMerkezi = await deleteMaliyetMerkeziFromDB(maliyet_merkezi,firma_kodu);
         if (deletedMaliyetMerkezi === 0) {
             return res.status(404).json({ message: 'Maliyet Merkezi not found' });
         }
-        res.json({ message: 'Maliyet Merkezi deleted successfully' });
+        res.status(200).json({ 
+            status:"OK",
+            message: 'Maliyet Merkezi deleted successfully'
+             });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

@@ -8,10 +8,11 @@ const getAllOperasyonFromDB = async () => {
 };
 
 
-const getOperasyonFromDB = async (operasyon) => {
+const getOperasyonFromDB = async (operasyon_tipi,firma_kodu) => {
     const pool = await sql.connect(config);
     const result = await pool.request()
-        .input('DOCTYPE', sql.VarChar, operasyon)
+        .input('DOCTYPE', sql.VarChar, operasyon_tipi)
+        .input('COMCODE',sql.VarChar,firma_kodu)
         .execute('sp_GetOperasyon');
     return result.recordset[0];
 };
@@ -37,10 +38,11 @@ const updateOperasyonFromDB = async (firma_kodu,operasyon,operasyon_aciklamasi,p
     return result.rowsAffected[0];
 };
 
-const deleteOperasyonFromDB = async (operasyon) => {
+const deleteOperasyonFromDB = async (operasyon_tipi,firma_kodu) => {
     const pool = await sql.connect(config);
     const result = await pool.request()
-        .input('DOCTYPE', sql.VarChar, operasyon)
+        .input('DOCTYPE', sql.VarChar, operasyon_tipi)
+        .input('COMCODE',sql.VarChar,firma_kodu)
         .execute('sp_DeleteOperasyon');
     return result.rowsAffected[0];
 };

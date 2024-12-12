@@ -10,9 +10,9 @@ const {
 } = require('../../controllers/kontrolT/urunAgaci.controller')
 
 router.get('',getAllUrunAgaci)
-router.get('/:id', getUrunAgaci);
+router.get('/:urun_agaci_tipi/:firma_kodu', getUrunAgaci);
 router.post('/', createUrunAgaci);
-router.put('/:id', updateUrunAgaci);
-router.delete('/:id', deleteUrunAgaci);
+router.put('/', updateUrunAgaci);
+router.delete('/:urun_agaci_tipi/:firma_kodu', deleteUrunAgaci);
 
 module.exports = router;

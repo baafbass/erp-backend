@@ -3,14 +3,15 @@ const config = require('../../config/database');
 
 const getAllMaliyetMerkeziFromDB = async () => {
     const pool = await sql.connect(config);
-    const result = await pool.request().execute('sp_GetAllMerkeziMerkezi');
+    const result = await pool.request().execute('sp_GetAllMaliyetMerkezi');
     return result.recordset;
 };
 
-const getMaliyetMerkeziFromDB = async (maliyet_merkezi) => {
+const getMaliyetMerkeziFromDB = async (maliyet_merkezi,firma_kodu) => {
     const pool = await sql.connect(config);
     const result = await pool.request()
         .input('DOCTYPE', sql.VarChar, maliyet_merkezi)
+        .input('COMCODE',sql.VarChar,firma_kodu)
         .execute('sp_GetMaliyetMerkezi');
     return result.recordset[0];
 };
@@ -36,10 +37,11 @@ const updateMaliyetMerkeziFromDB = async (firma_kodu,maliyet_merkezi,maliyet_mer
     return result.rowsAffected[0];
 };
 
-const deleteMaliyetMerkeziFromDB = async (maliyetMerkezi) => {
+const deleteMaliyetMerkeziFromDB = async (maliyet_merkezi,firma_kodu) => {
     const pool = await sql.connect(config);
     const result = await pool.request()
-        .input('DOCTYPE', sql.VarChar, maliyetMerkezi)
+        .input('DOCTYPE', sql.VarChar, maliyet_merkezi)
+        .input('COMCODE',sql.VarChar,firma_kodu)
         .execute('sp_DeleteMaliyetMerkezi');
     return result.rowsAffected[0];
 };

@@ -10,9 +10,9 @@ const {
 } = require('../../controllers/kontrolT/operasyon.controller')
 
 router.get('',getAllOperasyon)
-router.get('/:id', getOperasyon);
+router.get('/:operasyon_tipi/:firma_kodu', getOperasyon);
 router.post('/', createOperasyon);
-router.put('/:id', updateOperasyon);
-router.delete('/:id', deleteOperasyon);
+router.put('/', updateOperasyon);
+router.delete('/:operasyon_tipi/:firma_kodu', deleteOperasyon);
 
 module.exports = router;

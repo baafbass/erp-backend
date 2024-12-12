@@ -7,20 +7,22 @@ const getAllUrunAgaciFromDB = async () => {
     return result.recordset;
 };
 
-const getUrunAgaciFromDB = async (urunAgaci) => {
+const getUrunAgaciFromDB = async (urun_agaci_tipi,firma_kodu) => {
     const pool = await sql.connect(config);
     const result = await pool.request()
-        .input('DOCTYPE', sql.VarChar, urunAgaci)
+        .input('DOCTYPE', sql.VarChar, urun_agaci_tipi)
+        .input('COMCODE',sql.VarChar,firma_kodu)
         .execute('sp_GetUrunAgaci');
     return result.recordset[0];
 };
 
 const createUrunAgaciFromDB = async (firma_kodu,urun_agaci,urun_agaci_aciklama,passif_mi) => {
+    console.log(firma_kodu,urun_agaci,urun_agaci_aciklama,passif_mi,'repo')
     const pool = await sql.connect(config);
     await pool.request()
         .input('COMCODE', sql.VarChar, firma_kodu)
         .input('DOCTYPE', sql.VarChar, urun_agaci)
-        .input('DOCTYPETEXT', sql.VarChar, urun_agaci_aciklamasi)
+        .input('DOCTYPETEXT', sql.VarChar, urun_agaci_aciklama)
         .input('ISPASSIVE', sql.Int, passif_mi)
         .execute('sp_CreateUrunAgaci');
 };
@@ -30,16 +32,17 @@ const updateUrunAgaciFromDB = async (firma_kodu,urun_agaci,urun_agaci_aciklama,p
     const result = await pool.request()
         .input('COMCODE', sql.VarChar, firma_kodu)
         .input('DOCTYPE', sql.VarChar, urun_agaci)
-        .input('DOCTYPETEXT', sql.VarChar, urun_agaci_aciklamasi)
+        .input('DOCTYPETEXT', sql.VarChar, urun_agaci_aciklama)
         .input('ISPASSIVE', sql.Int, passif_mi)
         .execute('sp_UpdateUrunAgaci');
     return result.rowsAffected[0];
 };
 
-const deleteUrunAgaciFromDB = async (urun_agaci) => {
+const deleteUrunAgaciFromDB = async (urun_agaci_tipi,firma_kodu) => {
     const pool = await sql.connect(config);
     const result = await pool.request()
-        .input('DOCTYPE', sql.VarChar, urun_agaci)
+        .input('DOCTYPE', sql.VarChar, urun_agaci_tipi)
+        .input('COMCODE',sql.VarChar,firma_kodu)
         .execute('sp_DeleteUrunAgaci');
     return result.rowsAffected[0];
 };

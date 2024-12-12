@@ -10,9 +10,9 @@ const {
 } = require('../../controllers/kontrolT/rota.controller')
 
 router.get('',getAllRota);
-router.get('/:id', getRota);
+router.get('/:rota_tipi/:firma_kodu', getRota);
 router.post('/', createRota);
-router.put('/:id', updateRota);
-router.delete('/:id', deleteRota);
+router.put('/', updateRota);
+router.delete('/:rota_tipi/:firma_kodu', deleteRota);
 
 module.exports = router;

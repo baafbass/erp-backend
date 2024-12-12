@@ -20,12 +20,20 @@ const getAllRota = async (req, res) => {
 };
 
 const getRota = async (req, res) => {
+    const {rota_tipi,firma_kodu} = req.params;
     try {
-        const rota = await getRotaFromDB(req.params.id);
+        const rota = await getRotaFromDB(rota_tipi,firma_kodu);
         if (!rota) {
             return res.status(404).json({ message: 'rota not found' });
         }
-        res.json(rota);
+        const transformedRota = {
+            ...rota,
+            ISPASSIVE:rota.ISPASSIVE === "Evet" ? "1":"0"
+        }
+        res.status(200).json({
+            status:"OK",
+            transformedRota
+        });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -35,7 +43,10 @@ const createRota = async (req, res) => {
     const { firma_kodu,rota,rota_aciklamasi,passif_mi } = req.body;
     try {
         await createRotaFromDB(firma_kodu,rota,rota_aciklamasi,passif_mi);
-        res.status(201).json({ message: 'Rota created successfully' });
+        res.status(201).json({ 
+            status:"OK",
+            message: 'Rota created successfully'
+             });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -48,19 +59,26 @@ const updateRota = async (req, res) => {
         if (updatedRota === 0) {
             return res.status(404).json({ message: 'Rota not found' });
         }
-        res.json({ message: 'Rota updated successfully' });
+        res.status(200).json({ 
+            status:"OK",
+            message: 'Rota updated successfully'
+             });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 };
 
 const deleteRota = async (req, res) => {
+    const {rota_tipi,firma_kodu} = req.params;
     try {
-        const deletedRota = await deleteRotaFromDB(req.params.id);
+        const deletedRota = await deleteRotaFromDB(rota_tipi,firma_kodu);
         if (deletedRota === 0) {
             return res.status(404).json({ message: 'Rota not found' });
         }
-        res.json({ message: 'Rota deleted successfully' });
+        res.status(200).json({ 
+            status:"OK",
+            message: 'Rota deleted successfully'
+             });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

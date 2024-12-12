@@ -19,12 +19,22 @@ const getAllOperasyon = async (req, res) => {
 };
 
 const getOperasyon = async (req, res) => {
+    const {operasyon_tipi,firma_kodu} = req.params;
     try {
-        const operasyon = await getOperasyonFromDB(req.params.id);
+        const operasyon = await getOperasyonFromDB(operasyon_tipi,firma_kodu);
         if (!operasyon) {
             return res.status(404).json({ message: 'operasyon not found' });
         }
-        res.json(operasyon);
+       
+        const transformedOperasyon = {
+            ...operasyon,
+            ISPASSIVE:operasyon.ISPASSIVE === "Evet" ? "1":"0"
+        }
+
+        res.status(200).json({
+            status:"OK",
+            transformedOperasyon
+        });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -34,7 +44,10 @@ const createOperasyon = async (req, res) => {
     const { firma_kodu,operasyon,operasyon_aciklamasi,passif_mi } = req.body;
     try {
         await createOperasyonFromDB(firma_kodu,operasyon,operasyon_aciklamasi,passif_mi);
-        res.status(201).json({ message: 'Operasyon created successfully' });
+        res.status(201).json({ 
+            status:"OK",
+            message: 'Operasyon created successfully'
+             });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -47,19 +60,25 @@ const updateOperasyon = async (req, res) => {
         if (updatedOperasyon === 0) {
             return res.status(404).json({ message: 'Operasyon not found' });
         }
-        res.json({ message: 'Operasyon updated successfully' });
+        res.status(200).json({ 
+            status:"OK",
+            message: 'Operasyon updated successfully'
+             });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 };
 
 const deleteOperasyon = async (req, res) => {
+    const {operasyon_tipi,firma_kodu} = req.params;
     try {
-        const deletedOperasyon = await deleteOperasyonFromDB(req.params.id);
+        const deletedOperasyon = await deleteOperasyonFromDB(operasyon_tipi,firma_kodu);
         if (deletedOperasyon === 0) {
             return res.status(404).json({ message: 'Operasyon not found' });
         }
-        res.json({ message: 'Operasyon deleted successfully' });
+        res.status(200).json({ 
+            status:"OK",
+            message: 'Operasyon deleted successfully' });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

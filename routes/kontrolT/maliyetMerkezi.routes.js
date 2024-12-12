@@ -10,9 +10,9 @@ const {
 } = require('../../controllers/kontrolT/maliyetMerkezi.controller')
 
 router.get('',getAllMaliyetMerkezi)
-router.get('/:id', getMaliyetMerkezi);
+router.get('/:maliyet_merkezi/:firma_kodu', getMaliyetMerkezi);
 router.post('/', createMaliyetMerkezi);
-router.put('/:id', updateMaliyetMerkezi);
-router.delete('/:id', deleteMaliyetMerkezi);
+router.put('/', updateMaliyetMerkezi);
+router.delete('/:maliyet_merkezi/:firma_kodu', deleteMaliyetMerkezi);
 
 module.exports = router;
