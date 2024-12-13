@@ -8,14 +8,14 @@ const getAllMalzemeHeadFromDB = async () => {
 };
 
 const getMalzemeHeadFromDB = async (keys) => {
-    const {firma_kodu,malzeme_tipi,malzeme_kodu,gecerlilik_bas,gecerlilik_bit} = keys;
+    const {firma_kodu,malzeme_tipi,malzeme_kodu,gecer_bas,gecer_bit} = keys;
     const pool = await sql.connect(config);
     const result = await pool.request()
         .input('COMCODE', sql.VarChar, firma_kodu)
         .input('MATDOCTYPE', sql.VarChar, malzeme_tipi)
         .input('MATDOCNUM', sql.VarChar, malzeme_kodu)
-        .input('MATDOCFROM', sql.Date, gecerlilik_bas)
-        .input('MATDOCUNTIL', sql.Date, gecerlilik_bit)
+        .input('MATDOCFROM', sql.Date, gecer_bas)
+        .input('MATDOCUNTIL', sql.Date, gecer_bit)
         .execute('sp_GetMalzemeHead');
     return result.recordset[0];
 };
@@ -37,8 +37,8 @@ const createMalzemeHeadFromDB = async (params) => {
         urun_agaci_tipi,
         urun_agaci_kodu,
         rota_var_mi,
-        r_urun_agaci_tipi,
-        r_urun_agaci_kodu,
+        rota_tipi,
+        rota_numarasi,
         silindi_mi,
         passif_mi
          } = params;
@@ -59,8 +59,8 @@ const createMalzemeHeadFromDB = async (params) => {
         .input('BOMDOCTYPE',sql.VarChar,urun_agaci_tipi)
         .input('BOMDOCNUM',sql.VarChar,urun_agaci_kodu)
         .input('ISROUTE',sql.Int,rota_var_mi)
-        .input('ROTDOCTYPE',sql.VarChar,r_urun_agaci_tipi)
-        .input('ROTDOCNUM',sql.VarChar,r_urun_agaci_kodu)
+        .input('ROTDOCTYPE',sql.VarChar,rota_tipi)
+        .input('ROTDOCNUM',sql.VarChar,rota_numarasi)
         .input('ISDELETED',sql.Int,silindi_mi)
         .input('ISPASSIVE',sql.Int,passif_mi)
         .execute('sp_CreateMalzemeHead');
@@ -84,8 +84,8 @@ const {
         urun_agaci_tipi,
         urun_agaci_kodu,
         rota_var_mi,
-        r_urun_agaci_tipi,
-        r_urun_agaci_kodu,
+        rota_tipi,
+        rota_numarasi,
         silindi_mi,
         passif_mi
          } = params;
@@ -107,8 +107,8 @@ const {
         .input('BOMDOCTYPE',sql.VarChar,urun_agaci_tipi)
         .input('BOMDOCNUM',sql.VarChar,urun_agaci_kodu)
         .input('ISROUTE',sql.Int,rota_var_mi)
-        .input('ROTDOCTYPE',sql.VarChar,r_urun_agaci_tipi)
-        .input('ROTDOCNUM',sql.VarChar,r_urun_agaci_kodu)
+        .input('ROTDOCTYPE',sql.VarChar,rota_tipi)
+        .input('ROTDOCNUM',sql.VarChar,rota_numarasi)
         .input('ISDELETED',sql.Int,silindi_mi)
         .input('ISPASSIVE',sql.Int,passif_mi)
         .execute('sp_UpdateMalzemeHead');
@@ -116,14 +116,14 @@ const {
 };
 
 const deleteMalzemeHeadFromDB = async (keys) => {
-    const {firma_kodu,malzeme_tipi,malzeme_kodu,gecerlilik_bas,gecerlilik_bit} = keys
+    const {firma_kodu,malzeme_tipi,malzeme_kodu,gecer_bas,gecer_bit} = keys
     const pool = await sql.connect(config);
     const result = await pool.request()
         .input('COMCODE', sql.VarChar, firma_kodu)
         .input('MATDOCTYPE', sql.VarChar, malzeme_tipi)
         .input('MATDOCNUM', sql.VarChar, malzeme_kodu)
-        .input('MATDOCFROM', sql.Date, gecerlilik_bas)
-        .input('MATDOCUNTIL', sql.Date, gecerlilik_bit)
+        .input('MATDOCFROM', sql.Date, gecer_bas)
+        .input('MATDOCUNTIL', sql.Date, gecer_bit)
         .execute('sp_DeleteMalzemeHead');
     return result.rowsAffected[0];
 };

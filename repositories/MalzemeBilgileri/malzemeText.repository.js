@@ -8,20 +8,21 @@ const getAllMalzemeTextFromDB = async () => {
 };
 
 const getMalzemeTextFromDB = async (keys) => {
-    const {firma_kodu,malzeme_tipi,malzeme_kodu,gecerlilik_bas,gecerlilik_bit,dil_kodu} = keys;
+    const {firma_kodu,malzeme_tipi,malzeme_kodu,gecer_bas,gecer_bit,dil_kodu} = keys;
     const pool = await sql.connect(config);
     const result = await pool.request()
         .input('COMCODE', sql.VarChar, firma_kodu)
         .input('MATDOCTYPE', sql.VarChar, malzeme_tipi)
         .input('MATDOCNUM', sql.VarChar, malzeme_kodu)
-        .input('MATDOCFROM', sql.Date, gecerlilik_bas)
-        .input('MATDOCUNTIL', sql.Date, gecerlilik_bit)
+        .input('MATDOCFROM', sql.Date, gecer_bas)
+        .input('MATDOCUNTIL', sql.Date, gecer_bit)
         .input('LANCODE', sql.VarChar, dil_kodu)
         .execute('sp_GetMalzemeText');
     return result.recordset[0];
 };
 
-const createMalzemeTextFromDB = async (firma_kodu,malzeme_tipi,malzeme_kodu,gecerlilik_bas,gecerlilik_bit,dil_kodu,mal_kisa_acik,mal_uzun_acik) => {
+const createMalzemeTextFromDB = async (fields) => {
+    const {firma_kodu,malzeme_tipi,malzeme_kodu,gecerlilik_bas,gecerlilik_bit,dil_kodu,malzeme_kisa_aciklamasi,malzeme_uzun_aciklamasi} = fields;
     const pool = await sql.connect(config);
     await pool.request()
         .input('COMCODE', sql.VarChar, firma_kodu)
@@ -30,12 +31,13 @@ const createMalzemeTextFromDB = async (firma_kodu,malzeme_tipi,malzeme_kodu,gece
         .input('MATDOCFROM', sql.Date, gecerlilik_bas)
         .input('MATDOCUNTIL', sql.Date, gecerlilik_bit)
         .input('LANCODE', sql.VarChar, dil_kodu)
-        .input('MATSTEXT', sql.VarChar, mal_kisa_acik)
-        .input('MATLTEXT', sql.VarChar, mal_uzun_acik)
+        .input('MATSTEXT', sql.VarChar, malzeme_kisa_aciklamasi)
+        .input('MATLTEXT', sql.VarChar, malzeme_uzun_aciklamasi)
         .execute('sp_CreateMalzemeText');
 };
 
-const updateMalzemeTextFromDB = async (firma_kodu,malzeme_tipi,malzeme_kodu,gecerlilik_bas,gecerlilik_bit,dil_kodu,mal_kisa_acik,mal_uzun_acik) => {
+const updateMalzemeTextFromDB = async (fields) => {
+    const {firma_kodu,malzeme_tipi,malzeme_kodu,gecerlilik_bas,gecerlilik_bit,dil_kodu,malzeme_kisa_aciklamasi,malzeme_uzun_aciklamasi} = fields;
     const pool = await sql.connect(config);
     const result = await pool.request()
         .input('COMCODE', sql.VarChar, firma_kodu)
@@ -44,21 +46,21 @@ const updateMalzemeTextFromDB = async (firma_kodu,malzeme_tipi,malzeme_kodu,gece
         .input('MATDOCFROM', sql.Date, gecerlilik_bas)
         .input('MATDOCUNTIL', sql.Date, gecerlilik_bit)
         .input('LANCODE', sql.VarChar, dil_kodu)
-        .input('MATSTEXT', sql.VarChar, mal_kisa_acik)
-        .input('MATLTEXT', sql.VarChar, mal_uzun_acik)
+        .input('MATSTEXT', sql.VarChar, malzeme_kisa_aciklamasi)
+        .input('MATLTEXT', sql.VarChar, malzeme_uzun_aciklamasi)
         .execute('sp_UpdateMalzemeText');
     return result.rowsAffected[0];
 };
 
 const deleteMalzemeTextFromDB = async (keys) => {
-    const {firma_kodu,malzeme_tipi,malzeme_kodu,gecerlilik_bas,gecerlilik_bit,dil_kodu} = keys
+    const {firma_kodu,malzeme_tipi,malzeme_kodu,gecer_bas,gecer_bit,dil_kodu} = keys
     const pool = await sql.connect(config);
     const result = await pool.request()
         .input('COMCODE', sql.VarChar, firma_kodu)
         .input('MATDOCTYPE', sql.VarChar, malzeme_tipi)
         .input('MATDOCNUM', sql.VarChar, malzeme_kodu)
-        .input('MATDOCFROM', sql.Date, gecerlilik_bas)
-        .input('MATDOCUNTIL', sql.Date, gecerlilik_bit)
+        .input('MATDOCFROM', sql.Date, gecer_bas)
+        .input('MATDOCUNTIL', sql.Date, gecer_bit)
         .input('LANCODE', sql.VarChar, dil_kodu)
         .execute('sp_DeleteMalzemeText');
     return result.rowsAffected[0];
