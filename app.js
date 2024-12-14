@@ -16,6 +16,7 @@ const urunAgaciRoutes = require('./routes/kontrolT/urunAgaci.routes');
 
 const malzemeBilgileriRoutes = require('./routes/MalzemeBilgileri/malzemeBilgileri.routes');
 const maliyetMerkezleriRoutes = require('./routes/MaliyetMerkezleri/maliyetMerkezleri.routes');
+const isMerkezleriRoutes = require('./routes/IsMerkezleri/isMerkezleri.routes')
 
 const urunAgaciHeadRoutes = require('./routes/UrunAgacilari/urunAgaciHead.routes');
 const urunAgaciContentRoutes = require('./routes/UrunAgacilari/urunAgaciContent.routes')
@@ -39,7 +40,7 @@ app.use("/api/urun-agaci",urunAgaciRoutes);
 
 app.use("/api/malzeme-bilgileri",malzemeBilgileriRoutes)
 app.use("/api/maliyet-merkezleri",maliyetMerkezleriRoutes)
-
+app.use("/api/is-merkezleri",isMerkezleriRoutes)
 
 app.use("/api/urun-agacilari/urun-agaci-head",urunAgaciHeadRoutes);
 app.use("/api/urun-agacilari/urun-agaci-content",urunAgaciContentRoutes);
