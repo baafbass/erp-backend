@@ -1,13 +1,19 @@
-const {createMalzemeHead} = require('./malzemeHead.controller');
-const {createMalzemeText} = require('./malzemeText.controller');
-const {updateMalzemeHead} = require('./malzemeHead.controller');
-const {updateMalzemeText} = require('./malzemeText.controller');
-const {deleteMalzemeHead} = require('./malzemeHead.controller');
-const {deleteMalzemeText} = require('./malzemeText.controller');
-const {getMalzemeHead} = require('./malzemeHead.controller');
-const {getMalzemeText} = require('./malzemeText.controller');
-const {getAllMalzemeHead} = require('./malzemeHead.controller');
-const {getAllMalzemeText} = require('./malzemeText.controller');
+const {
+	createMalzemeHead,
+	updateMalzemeHead,
+	deleteMalzemeHead,
+	getMalzemeHead,
+	getAllMalzemeHead
+} = require('./malzemeHead.controller');
+
+const {
+	createMalzemeText,
+	updateMalzemeText,
+	deleteMalzemeText,
+	getMalzemeText,
+	getAllMalzemeText
+} = require('./malzemeText.controller');
+
 
 const getAllMalzemeBilgileri = async (req, res) => {
     try {

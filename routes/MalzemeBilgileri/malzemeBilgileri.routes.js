@@ -9,7 +9,6 @@ const {
 	deleteMalzemeBilgileri
 } = require('../../controllers/MalzemeBilgileri/malzemeBilgileri.controller')
 
-
 router.get('',getAllMalzemeBilgileri);
 router.get('/:firma_kodu/:malzeme_tipi/:malzeme_kodu/:gecer_bas/:gecer_bit/:dil_kodu',getMalzemeBilgileri)
 router.post('/',createMalzemeBilgileri);
