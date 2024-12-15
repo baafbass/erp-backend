@@ -346,9 +346,9 @@ const deleteIsMerkezi = async (req,res) => {
    }
 
    try{
-   	const deletedIsMerkezHead = await deleteIsMerkezHead();
-   	const deletedIsMerkezText = await deleteIsMerkezText();
-   	const deletedIsMerkezOpr = await deleteIsMerkezOpr();
+   	const deletedIsMerkezHead = await deleteIsMerkezHead(headKeys);
+   	const deletedIsMerkezText = await deleteIsMerkezText(textKeys);
+   	const deletedIsMerkezOpr = await deleteIsMerkezOpr(oprKeys);
 
    	if(deleteIsMerkezHead === 0 || deleteIsMerkezText === 0 || deleteIsMerkezOpr === 0){
    		return res.status(404).json({
