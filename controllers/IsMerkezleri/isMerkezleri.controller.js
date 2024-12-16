@@ -111,7 +111,7 @@ const {
 
    try{
    	const isMerkezHead = await getIsMerkezHead(headKeys);
-   	const isMerkezText = await getIsMerkezHead(textKeys);
+   	const isMerkezText = await getIsMerkezText(textKeys);
    	const isMerkezOpr = await getIsMerkezOpr(oprKeys);
 
    	if(!isMerkezHead || !isMerkezText || !isMerkezOpr){
