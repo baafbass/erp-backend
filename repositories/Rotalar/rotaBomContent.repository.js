@@ -36,6 +36,7 @@ const getRotaBOMFromDB = async (keys) => {
         .input('BOMDOCNUM',sql.VarChar,urun_agaci_kodu)
         .input('CONTENTNUM',sql.Int,icerik_numarasi)
         .execute('sp_GetRotaBom');
+        console.log('con',result)
     return result.recordset[0];
    
 }
@@ -92,6 +93,22 @@ const updateRotaBOMFromDB = async (rota_bom) => {
        bilesen_kodu,
        bilesen_miktari
 	} = rota_bom
+
+    console.log(
+       firma_kodu,
+       rota_tipi,
+       rota_numarasi,
+       gecerlilik_bas,
+       gecerlilik_bit,
+       malzeme_tipi,
+       malzeme_kodu,
+       operasyon_num,
+       urun_agaci_tipi,
+       urun_agaci_kodu,
+       icerik_numarasi,
+       bilesen_kodu,
+       bilesen_miktari
+        )
 
 	const pool = await sql.connect(config);
     await pool.request()

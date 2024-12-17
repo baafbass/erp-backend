@@ -30,6 +30,8 @@ const getRotaOprFromDB = async (keys) => {
         .input('MATDOCNUM',sql.VarChar,malzeme_kodu)
         .input('OPRNUM',sql.Int,opr_numarasi)
         .execute('sp_GetRotaOpr');
+
+        console.log('opr',result);
     return result.recordset[0];
 
 }
@@ -44,6 +46,7 @@ const createRotaOprFromDB = async (rota_opr) => {
         gecerlilik_bit,
         malzeme_tipi,
         malzeme_kodu,
+        operasyon_num,
         is_merk_tipi,
       	is_merk_kodu,
       	operasyon_kodu,
@@ -80,6 +83,7 @@ const updateRotaOprFromDB = async (rota_opr) => {
         gecerlilik_bit,
         malzeme_tipi,
         malzeme_kodu,
+        operasyon_num,
         is_merk_tipi,
       	is_merk_kodu,
       	operasyon_kodu,

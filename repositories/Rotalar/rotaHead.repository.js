@@ -28,6 +28,8 @@ const getRotaHeadFromDB = async (keys) => {
         .input('MATDOCTYPE',sql.VarChar,malzeme_tipi)
         .input('MATDOCNUM',sql.VarChar,malzeme_kodu)
         .execute('sp_GetRotaHead');
+
+        console.log('head',result);
     return result.recordset[0];
 
 }

@@ -40,8 +40,8 @@ app.use("/api/urun-agaci",urunAgaciRoutes);
 app.use("/api/malzeme-bilgileri",malzemeBilgileriRoutes)
 app.use("/api/maliyet-merkezleri",maliyetMerkezleriRoutes)
 app.use("/api/is-merkezleri",isMerkezleriRoutes)
-app.use("/api/urun-agacilari",urunAgacilariRoutes);
-app.use("/api/rotalar/",rotalarRoutes)
+app.use("/api/urun-agacilari",urunAgacilariRoutes)
+app.use("/api/rotalar",rotalarRoutes)
 
 app.use((req,res)=>{
 	return res.status(404).json({

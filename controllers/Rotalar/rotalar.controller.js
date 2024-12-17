@@ -56,8 +56,8 @@ const getAllRotalar = async (req,res) =>{
       if (matchingHead && matchingOpr) {
         return {
           ...bomRota,
-          ...headRota,
-          ...oprRota,
+          ...matchingHead,
+          ...matchingOpr,
         };
       }
       return null;
@@ -88,6 +88,20 @@ const getRota = async (req,res) => {
    opr_numarasi,
    icerik_numarasi
   } = req.params;
+
+
+  console.log(
+    firma_kodu,
+   urun_agaci_tipi,
+   urun_agaci_kodu,
+   gecer_bas,
+   gecer_bit,
+   malzeme_tipi,
+   malzeme_kodu,
+   rota_tipi,
+   rota_numarasi,
+   opr_numarasi,
+   icerik_numarasi)
 
   const headKeys = {
   	firma_kodu,
@@ -235,6 +249,7 @@ const createRota = async (req,res) => {
         gecerlilik_bit,
         malzeme_tipi,
         malzeme_kodu,
+        operasyon_num,
         is_merk_tipi,
       	is_merk_kodu,
       	operasyon_kodu,
@@ -327,9 +342,12 @@ const updateRota = async (req,res) => {
        gecerlilik_bit,
        malzeme_tipi,
        malzeme_kodu,
+       operasyon_num,
        urun_agaci_tipi,
        urun_agaci_kodu,
-       icerik_numarasi 
+       icerik_numarasi,
+       bilesen_kodu,
+       bilesen_miktari
       }
 
       const rota_opr = {
@@ -340,12 +358,13 @@ const updateRota = async (req,res) => {
         gecerlilik_bit,
         malzeme_tipi,
         malzeme_kodu,
+        operasyon_num,
         is_merk_tipi,
-      	is_merk_kodu,
-      	operasyon_kodu,
-      	opr_hazirlik_suresi,
-      	opr_makine_suresi,
-      	opr_iscilik_suresi
+        is_merk_kodu,
+        operasyon_kodu,
+        opr_hazirlik_suresi,
+        opr_makine_suresi,
+        opr_iscilik_suresi
       }
 
       try{
