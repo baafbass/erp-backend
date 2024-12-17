@@ -36,7 +36,6 @@ const getRotaBOMFromDB = async (keys) => {
         .input('BOMDOCNUM',sql.VarChar,urun_agaci_kodu)
         .input('CONTENTNUM',sql.Int,icerik_numarasi)
         .execute('sp_GetRotaBom');
-        console.log('con',result)
     return result.recordset[0];
    
 }
@@ -73,7 +72,7 @@ const createRotaBOMFromDB = async (rota_bom) => {
         .input('BOMDOCNUM', sql.VarChar, urun_agaci_kodu)
         .input('CONTENTNUM', sql.Int, icerik_numarasi)
         .input('COMPONENT', sql.VarChar, bilesen_kodu)
-        .input('QUANTITY',sql.Decimal,bilesen_miktari)
+        .input('QUANTITY',sql.Decimal(5,2),bilesen_miktari)
         .execute('sp_CreateRotaBom');
 }
 
@@ -94,22 +93,6 @@ const updateRotaBOMFromDB = async (rota_bom) => {
        bilesen_miktari
 	} = rota_bom
 
-    console.log(
-       firma_kodu,
-       rota_tipi,
-       rota_numarasi,
-       gecerlilik_bas,
-       gecerlilik_bit,
-       malzeme_tipi,
-       malzeme_kodu,
-       operasyon_num,
-       urun_agaci_tipi,
-       urun_agaci_kodu,
-       icerik_numarasi,
-       bilesen_kodu,
-       bilesen_miktari
-        )
-
 	const pool = await sql.connect(config);
     await pool.request()
         .input('COMCODE', sql.VarChar, firma_kodu)
@@ -124,7 +107,7 @@ const updateRotaBOMFromDB = async (rota_bom) => {
         .input('BOMDOCNUM', sql.VarChar, urun_agaci_kodu)
         .input('CONTENTNUM', sql.Int, icerik_numarasi)
         .input('COMPONENT', sql.VarChar, bilesen_kodu)
-        .input('QUANTITY',sql.Decimal,bilesen_miktari)
+        .input('QUANTITY',sql.Decimal(5,2),bilesen_miktari)
         .execute('sp_UpdateRotaBom');
 }
 

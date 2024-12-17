@@ -30,8 +30,6 @@ const getRotaOprFromDB = async (keys) => {
         .input('MATDOCNUM',sql.VarChar,malzeme_kodu)
         .input('OPRNUM',sql.Int,opr_numarasi)
         .execute('sp_GetRotaOpr');
-
-        console.log('opr',result);
     return result.recordset[0];
 
 }
@@ -68,9 +66,9 @@ const createRotaOprFromDB = async (rota_opr) => {
         .input('WCMDOCTYPE', sql.VarChar, is_merk_tipi)
         .input('WCMDOCNUM', sql.VarChar, is_merk_kodu)
         .input('OPRDOCTYPE',sql.VarChar,operasyon_kodu)
-        .input('SETUPTIME', sql.Decimal, opr_hazirlik_suresi)
-        .input('MACHINETIME', sql.Decimal, opr_makine_suresi)
-        .input('LABOURTIME',sql.Decimal,opr_iscilik_suresi)
+        .input('SETUPTIME', sql.Decimal(3,2), opr_hazirlik_suresi)
+        .input('MACHINETIME', sql.Decimal(3,2), opr_makine_suresi)
+        .input('LABOURTIME',sql.Decimal(3,2),opr_iscilik_suresi)
         .execute('sp_CreateRotaOpr');
 }
 
@@ -105,9 +103,9 @@ const updateRotaOprFromDB = async (rota_opr) => {
         .input('WCMDOCTYPE', sql.VarChar, is_merk_tipi)
         .input('WCMDOCNUM', sql.VarChar, is_merk_kodu)
         .input('OPRDOCTYPE',sql.VarChar,operasyon_kodu)
-        .input('SETUPTIME', sql.Decimal, opr_hazirlik_suresi)
-        .input('MACHINETIME', sql.Decimal, opr_makine_suresi)
-        .input('LABOURTIME',sql.Decimal,opr_iscilik_suresi)
+        .input('SETUPTIME', sql.Decimal(3,2), opr_hazirlik_suresi)
+        .input('MACHINETIME', sql.Decimal(3,2), opr_makine_suresi)
+        .input('LABOURTIME',sql.Decimal(3,2),opr_iscilik_suresi)
         .execute('sp_UpdateRotaOpr');
 }
 

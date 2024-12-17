@@ -28,8 +28,6 @@ const getRotaHeadFromDB = async (keys) => {
         .input('MATDOCTYPE',sql.VarChar,malzeme_tipi)
         .input('MATDOCNUM',sql.VarChar,malzeme_kodu)
         .execute('sp_GetRotaHead');
-
-        console.log('head',result);
     return result.recordset[0];
 
 }
@@ -58,7 +56,7 @@ const createRotaHeadFromDB = async (rota_head) => {
         .input('ROTDOCUNTIL', sql.Date, gecerlilik_bit)
         .input('MATDOCTYPE', sql.VarChar, malzeme_tipi)
         .input('MATDOCNUM', sql.VarChar, malzeme_kodu)
-        .input('QUANTITY', sql.Decimal, temel_miktar)
+        .input('QUANTITY', sql.Decimal(5,2), temel_miktar)
         .input('ISDELETED', sql.Int, silindi_mi)
         .input('ISPASSIVE', sql.Int, passif_mi)
         .input('DRAWNUM', sql.VarChar, cizim_numarasi)
@@ -89,7 +87,7 @@ const updateRotaHeadFromDB = async (rota_head) => {
         .input('ROTDOCUNTIL', sql.Date, gecerlilik_bit)
         .input('MATDOCTYPE', sql.VarChar, malzeme_tipi)
         .input('MATDOCNUM', sql.VarChar, malzeme_kodu)
-        .input('QUANTITY', sql.Decimal, temel_miktar)
+        .input('QUANTITY', sql.Decimal(5,2), temel_miktar)
         .input('ISDELETED', sql.Int, silindi_mi)
         .input('ISPASSIVE', sql.Int, passif_mi)
         .input('DRAWNUM', sql.VarChar, cizim_numarasi)

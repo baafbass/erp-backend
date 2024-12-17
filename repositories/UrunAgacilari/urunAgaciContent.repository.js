@@ -63,7 +63,7 @@ const createUrunAgaciContentFromDB = async (urun_agaci_content) => {
         .input('COMPONENT', sql.VarChar, bilesen_kodu)
         .input('COMBOMDOCTYPE', sql.VarChar, kalem_urun_agaci_tipi)
         .input('COMBOMDOCNUM', sql.VarChar, kalem_urun_agaci_kodu)
-        .input('QUANTITY', sql.Decimal, bilesen_miktari)
+        .input('QUANTITY', sql.Decimal(5,2), bilesen_miktari)
         .execute('sp_CreateUrunAgaciContent');
 };
 
@@ -97,7 +97,7 @@ const updateUrunAgaciContentFromDB = async (urun_agaci_content) => {
         .input('COMPONENT', sql.VarChar, bilesen_kodu)
         .input('COMBOMDOCTYPE', sql.VarChar, kalem_urun_agaci_tipi)
         .input('COMBOMDOCNUM', sql.VarChar, kalem_urun_agaci_kodu)
-        .input('QUANTITY', sql.Decimal, bilesen_miktari)
+        .input('QUANTITY', sql.Decimal(5,2), bilesen_miktari)
         .execute('sp_UpdateUrunAgaciContent');
     return result.rowsAffected[0];
 };

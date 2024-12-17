@@ -54,7 +54,7 @@ const createIsMerkezHeadFromDB = async (is_merk_head) => {
         .input('MAINWCMDOCNUM', sql.VarChar, ana_is_merk_kodu)
         .input('CCMDOCTYPE', sql.VarChar, maliyet_merk_tipi)
         .input('CCMDOCNUM', sql.VarChar, maliyet_merk_kodu)
-        .input('WORKTIME', sql.Decimal, gunluk_calisma_suresi)
+        .input('WORKTIME', sql.Decimal(3,2), gunluk_calisma_suresi)
         .input('ISDELETED', sql.Int, silindi_mi)
         .input('ISPASSIVE', sql.Int, passif_mi)
         .execute('sp_CreateIsMerkezHead');
@@ -87,7 +87,7 @@ const updateIsMerkezHeadFromDB = async (is_merk_head) => {
         .input('MAINWCMDOCNUM', sql.VarChar, ana_is_merk_kodu)
         .input('CCMDOCTYPE', sql.VarChar, maliyet_merk_tipi)
         .input('CCMDOCNUM', sql.VarChar, maliyet_merk_kodu)
-        .input('WORKTIME', sql.Decimal, gunluk_calisma_suresi)
+        .input('WORKTIME', sql.Decimal(3,2), gunluk_calisma_suresi)
         .input('ISDELETED', sql.Int, silindi_mi)
         .input('ISPASSIVE', sql.Int, passif_mi)
         .execute('sp_UpdateIsMerkezHead');
