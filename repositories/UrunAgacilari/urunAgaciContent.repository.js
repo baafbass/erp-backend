@@ -34,6 +34,7 @@ const getUrunAgaciContentFromDB = async (keys) => {
 };
 
 const createUrunAgaciContentFromDB = async (urun_agaci_content) => {
+    
     const {
         firma_kodu,
         urun_agaci_tipi,
@@ -48,6 +49,7 @@ const createUrunAgaciContentFromDB = async (urun_agaci_content) => {
         kalem_urun_agaci_kodu,
         bilesen_miktari
    } = urun_agaci_content
+
     const pool = await sql.connect(config);
     await pool.request()
         .input('COMCODE', sql.VarChar, firma_kodu)

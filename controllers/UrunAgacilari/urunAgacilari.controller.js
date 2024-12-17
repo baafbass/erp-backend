@@ -307,7 +307,7 @@ const deleteUrunAgaci = async (req,res) => {
   	const deletedUrunAgaciHead = await deleteUrunAgaciHead(headKeys);
   	const deletedUrunAgaciContent = await deleteUrunAgaciContent(contentKeys);
 
-  	if(deletedUrunAgaciHead === 0 || deletedAgaciContent === 0 ){
+  	if(deletedUrunAgaciHead === 0 || deletedUrunAgaciContent === 0 ){
   		return res.status(404).json({
   			message:"Urun Agaci Head or Content was not found"
   		})
