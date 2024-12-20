@@ -32,7 +32,9 @@ const getAllMaliyetMerkezleri = async (req,res) => {
 			if(matchingText){
 				return {
 					...maliyetHead,
-					...matchingText
+					...matchingText,
+					CCMDOCFROM: maliyetHead.CCMDOCFROM.toISOString().split('T')[0],
+          CCMDOCUNTIL: maliyetHead.CCMDOCUNTIL.toISOString().split('T')[0]
 				}
 			}
 			return null

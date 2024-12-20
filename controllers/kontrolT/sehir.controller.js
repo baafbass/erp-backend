@@ -36,7 +36,7 @@ const getSehir = async (req, res) => {
 
 const createSehir = async (req, res) => {
     const { firma_kodu,sehir_kodu,sehir_adi,ulke_kodu } = req.body;
-    if(!firma_kodu || !sehir_kodu || !sehir_adi){
+    if(!firma_kodu || !sehir_kodu || !sehir_adi || !ulke_kodu){
         return res.status(400).json({
             message:'Invalid Inputs',
         })
@@ -54,7 +54,7 @@ const createSehir = async (req, res) => {
 
 const updateSehir = async (req, res) => {
     const {firma_kodu,sehir_kodu,sehir_adi,ulke_kodu } = req.body;
-    if(!sehir_adi){
+    if(!sehir_adi || !ulke_kodu){
         return res.status(400).json({
             message:'Invalid Inputs',
         })

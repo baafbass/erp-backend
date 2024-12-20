@@ -32,7 +32,9 @@ const getAllMalzemeBilgileri = async (req, res) => {
             if (matchingText) {
                 return {
                     ...malzemeHead,
-                    ...matchingText
+                    ...matchingText,
+                    MATDOCFROM: malzemeHead.MATDOCFROM.toISOString().split('T')[0],
+                    MATDOCUNTIL: malzemeHead.MATDOCUNTIL.toISOString().split('T')[0]
                 };
             }
             return null;
@@ -52,26 +54,26 @@ const getAllMalzemeBilgileri = async (req, res) => {
 const getMalzemeBilgileri = async (req,res) => {
 
 	const {
-		firma_kodu,
-		malzeme_tipi,
-		malzeme_kodu,
+	firma_kodu,
+	malzeme_tipi,
+	malzeme_kodu,
     gecer_bas,
     gecer_bit,
     dil_kodu
 	} = req.params;
 	
 	const headKeys = {
-		firma_kodu,
-		malzeme_tipi,
-		malzeme_kodu,
+	firma_kodu,
+	malzeme_tipi,
+	malzeme_kodu,
     gecer_bas,
     gecer_bit
 	}
 
 	const textKeys = {
-		firma_kodu,
-		malzeme_tipi,
-		malzeme_kodu,
+	firma_kodu,
+	malzeme_tipi,
+	malzeme_kodu,
     gecer_bas,
     gecer_bit,
     dil_kodu
@@ -129,6 +131,17 @@ const createMalzemeBilgileri = async (req,res) => {
 		malzeme_kisa_aciklamasi,
 		malzeme_uzun_aciklamasi
 	} = req.body;
+    
+    console.log(firma_kodu,
+		malzeme_tipi, 
+		malzeme_kodu, 
+		gecerlilik_bas, 
+		gecerlilik_bit, 
+		tedarik_tipi, 
+		malzeme_stok_birimi, 
+		dil_kodu, 
+		malzeme_kisa_aciklamasi, 
+		malzeme_uzun_aciklamasi)
 
 	if( !firma_kodu || 
 		!malzeme_tipi || 
@@ -147,7 +160,7 @@ const createMalzemeBilgileri = async (req,res) => {
 	}
     
     const malzemeHeadBilgileri = {
-    firma_kodu,
+        firma_kodu,
 		malzeme_tipi,
 		malzeme_kodu,
 		gecerlilik_bas,
@@ -168,7 +181,7 @@ const createMalzemeBilgileri = async (req,res) => {
 		passif_mi}
 
 		const malzemeTextBilgileri = {
-    firma_kodu,
+        firma_kodu,
 		malzeme_tipi,
 		malzeme_kodu,
 		gecerlilik_bas,
@@ -226,7 +239,6 @@ const updateMalzemeBilgileri =  async (req,res) => {
 		!malzeme_kodu || 
 		!gecerlilik_bas || 
 		!gecerlilik_bit || 
-		!tedarik_tipi || 
 		!malzeme_stok_birimi || 
 		!dil_kodu || 
 		!malzeme_kisa_aciklamasi || 
