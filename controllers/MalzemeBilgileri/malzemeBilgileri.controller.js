@@ -33,6 +33,9 @@ const getAllMalzemeBilgileri = async (req, res) => {
                 return {
                     ...malzemeHead,
                     ...matchingText,
+                    ISPASSIVE:malzemeHead.ISPASSIVE === 1 ? "Evet" : "Hayır",
+                    ISDELETED:malzemeHead.ISDELETED ===  1 ? "Evet" : "Hayır",
+                    SUPPLYTYPE: malzemeHead.SUPPLYTYPE === 1 ? "Üretilen" : "Satınalınan",
                     MATDOCFROM: malzemeHead.MATDOCFROM.toISOString().split('T')[0],
                     MATDOCUNTIL: malzemeHead.MATDOCUNTIL.toISOString().split('T')[0]
                 };
@@ -96,7 +99,7 @@ const getMalzemeBilgileri = async (req,res) => {
 
 		res.status(200).json({
 			status:"OK",
-      malzemeBilgileri
+          malzemeBilgileri
 		})
      
 	} catch(error) {

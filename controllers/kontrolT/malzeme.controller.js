@@ -90,6 +90,7 @@ const deleteMalzeme = async (req, res) => {
             message: 'Malzeme deleted successfully'
              });
     } catch (error) {
+        console.log(error)
         res.status(500).json({ error: error.message });
     }
 };

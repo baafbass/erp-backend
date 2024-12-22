@@ -33,6 +33,8 @@ const getAllMaliyetMerkezleri = async (req,res) => {
 				return {
 					...maliyetHead,
 					...matchingText,
+					ISPASSIVE:maliyetHead.ISPASSIVE === 1 ? "Evet" : "Hayır",
+          ISDELETED:maliyetHead.ISDELETED ===  1 ? "Evet" : "Hayır",
 					CCMDOCFROM: maliyetHead.CCMDOCFROM.toISOString().split('T')[0],
           CCMDOCUNTIL: maliyetHead.CCMDOCUNTIL.toISOString().split('T')[0]
 				}

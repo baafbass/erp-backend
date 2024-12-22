@@ -84,6 +84,7 @@ const deleteFirma = async (req, res) => {
             status:"OK", 
             message: 'Firma deleted successfully' });
     } catch (error) {
+        console.log(error)
         res.status(500).json({ error: error.message });
     }
 };
