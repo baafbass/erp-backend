@@ -54,11 +54,15 @@ const getAllIsMerkezleri = async (req, res) => {
           ...isMerkezHead,
           ...matchingText,
           ...matchingOpr,
+          ISPASSIVE:isMerkezHead.ISPASSIVE === 1 ? "Evet" : "Hayır",
+          ISDELETED:isMerkezHead.ISDELETED ===  1 ? "Evet" : "Hayır",
+					WCMDOCFROM: isMerkezHead.WCMDOCFROM.toISOString().split('T')[0],
+          WCMDOCUNTIL: isMerkezHead.WCMDOCUNTIL.toISOString().split('T')[0]
+
         };
       }
       return null;
     }).filter((item) => item !== null);
-
    
     res.status(200).json({
       status: "OK",

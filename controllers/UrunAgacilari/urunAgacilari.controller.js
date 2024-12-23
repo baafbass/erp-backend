@@ -34,7 +34,11 @@ const getAllUrunAgacilari = async (req,res) => {
 			if(matchingContent){
 				return {
 					...urunAgaciHead,
-					...matchingContent
+					...matchingContent,
+			        ISPASSIVE:urunAgaciHead.ISPASSIVE === 1 ? "Evet" : "Hayır",
+                    ISDELETED:urunAgaciHead.ISDELETED ===  1 ? "Evet" : "Hayır",
+                    BOMDOCFROM: urunAgaciHead.BOMDOCFROM.toISOString().split('T')[0],
+                    BOMDOCUNTIL: urunAgaciHead.BOMDOCUNTIL.toISOString().split('T')[0]
 				}
 			}
 			return null
@@ -132,6 +136,24 @@ const createUrunAgaci = async (req,res) => {
 		bilesen_miktari
 	} = req.body;
 
+
+	 console.log(firma_kodu,
+		urun_agaci_tipi,
+		urun_agaci_kodu,
+		gecerlilik_bas,
+		gecerlilik_bit,
+		malzeme_tipi,
+		malzeme_kodu,
+		temel_miktar,
+		silindi_mi,
+		passif_mi,
+		cizim_numarasi,
+		icerik_numarasi,
+		bilesen_kodu,
+		kalem_urun_agaci_tipi,
+		kalem_urun_agaci_kodu,
+		bilesen_miktari)
+
 	if(
 		!firma_kodu ||
 		!urun_agaci_tipi ||
@@ -140,8 +162,13 @@ const createUrunAgaci = async (req,res) => {
 		!gecerlilik_bit ||
 		!malzeme_tipi ||
 		!malzeme_kodu ||
-		!icerik_numarasi){
-		res.status(400).json({
+		!icerik_numarasi ||
+		!temel_miktar ||
+		!bilesen_kodu ||
+		!kalem_urun_agaci_tipi ||
+		!kalem_urun_agaci_kodu ||
+		!bilesen_miktari){
+		return res.status(400).json({
 			message:'Invalid Inputs',
 		})
 	}
@@ -258,7 +285,7 @@ const updateUrunAgaci = async (req,res) => {
         await updateUrunAgaciHead(urun_agaci_head);
         await updateUrunAgaciContent(urun_agaci_content);
         
-        res.status(201).json({
+        res.status(200).json({
         	status:"OK",
         	message:"Urun Agaci updated successfully"
         })
@@ -320,7 +347,7 @@ const deleteUrunAgaci = async (req,res) => {
 
   } catch(error){
   	res.status(500).json({
-  		message: error.message,
+  		message: error,
   	})
   }
 

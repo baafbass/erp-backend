@@ -18,7 +18,7 @@ const getUrunAgaciContentFromDB = async (keys) => {
         malzeme_kodu,
         icerik_numarasi
     } = keys;
-    
+
     const pool = await sql.connect(config);
     const result = await pool.request()
         .input('COMCODE', sql.VarChar, firma_kodu)
@@ -113,6 +113,7 @@ const deleteUrunAgaciContentFromDB = async (keys) => {
         malzeme_kodu,
         icerik_numarasi
     } = keys
+
     const pool = await sql.connect(config);
     const result = await pool.request()
         .input('COMCODE', sql.VarChar, firma_kodu)

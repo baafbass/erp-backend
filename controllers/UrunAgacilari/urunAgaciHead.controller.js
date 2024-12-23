@@ -12,7 +12,7 @@ const getAllUrunAgaciHead = async () => {
 }
 
 const getUrunAgaciHead = async (urun_agaci_head_keys) => {
-        const urunAgaciHead = await getUrunAgaciHeadDB(urun_agaci_head_keys);
+        const urunAgaciHead = await getUrunAgaciHeadFromDB(urun_agaci_head_keys);
         return urunAgaciHead;
 };
 
