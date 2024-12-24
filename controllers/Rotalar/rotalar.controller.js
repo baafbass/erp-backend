@@ -145,8 +145,6 @@ const getRota = async (req,res) => {
    		...rotaOpr
    	}
 
-    console.log(rota)
-
    	res.status(200).json({
    		status:"OK",
    		rota
