@@ -136,24 +136,6 @@ const createUrunAgaci = async (req,res) => {
 		bilesen_miktari
 	} = req.body;
 
-
-	 console.log(firma_kodu,
-		urun_agaci_tipi,
-		urun_agaci_kodu,
-		gecerlilik_bas,
-		gecerlilik_bit,
-		malzeme_tipi,
-		malzeme_kodu,
-		temel_miktar,
-		silindi_mi,
-		passif_mi,
-		cizim_numarasi,
-		icerik_numarasi,
-		bilesen_kodu,
-		kalem_urun_agaci_tipi,
-		kalem_urun_agaci_kodu,
-		bilesen_miktari)
-
 	if(
 		!firma_kodu ||
 		!urun_agaci_tipi ||
