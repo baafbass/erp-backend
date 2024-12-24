@@ -58,6 +58,10 @@ const getAllRotalar = async (req,res) =>{
           ...bomRota,
           ...matchingHead,
           ...matchingOpr,
+          ISPASSIVE:bomRota.ISPASSIVE === 1 ? "Evet" : "Hayır",
+          ISDELETED:bomRota.ISDELETED ===  1 ? "Evet" : "Hayır",
+          ROTDOCFROM: bomRota.ROTDOCFROM.toISOString().split('T')[0],
+          ROTDOCUNTIL: bomRota.ROTDOCUNTIL.toISOString().split('T')[0]
         };
       }
       return null;
@@ -88,20 +92,6 @@ const getRota = async (req,res) => {
    opr_numarasi,
    icerik_numarasi
   } = req.params;
-
-
-  console.log(
-    firma_kodu,
-   urun_agaci_tipi,
-   urun_agaci_kodu,
-   gecer_bas,
-   gecer_bit,
-   malzeme_tipi,
-   malzeme_kodu,
-   rota_tipi,
-   rota_numarasi,
-   opr_numarasi,
-   icerik_numarasi)
 
   const headKeys = {
   	firma_kodu,
@@ -154,6 +144,8 @@ const getRota = async (req,res) => {
    		...rotaBOM,
    		...rotaOpr
    	}
+
+    console.log(rota)
 
    	res.status(200).json({
    		status:"OK",
