@@ -74,10 +74,8 @@ const updateUlke = async (req, res) => {
 
 const deleteUlke = async (req, res) => {
     const {ulke_kodu,firma_kodu} = req.params;
-    console.log(ulke_kodu,firma_kodu);
     try {
         const deletedUlke = await deleteUlkeFromDB(ulke_kodu,firma_kodu);
-        console.log('deleted ulke',deleteUlke);
         if (deletedUlke === 0) {
             return res.status(404).json({ message: 'Ulke not found' });
         }

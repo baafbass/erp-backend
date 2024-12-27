@@ -135,17 +135,6 @@ const createMalzemeBilgileri = async (req,res) => {
 		malzeme_uzun_aciklamasi
 	} = req.body;
     
-    console.log(firma_kodu,
-		malzeme_tipi, 
-		malzeme_kodu, 
-		gecerlilik_bas, 
-		gecerlilik_bit, 
-		tedarik_tipi, 
-		malzeme_stok_birimi, 
-		dil_kodu, 
-		malzeme_kisa_aciklamasi, 
-		malzeme_uzun_aciklamasi)
-
 	if( !firma_kodu || 
 		!malzeme_tipi || 
 		!malzeme_kodu || 

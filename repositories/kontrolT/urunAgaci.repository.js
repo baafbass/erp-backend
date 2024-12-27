@@ -17,7 +17,6 @@ const getUrunAgaciFromDB = async (urun_agaci_tipi,firma_kodu) => {
 };
 
 const createUrunAgaciFromDB = async (firma_kodu,urun_agaci,urun_agaci_aciklama,passif_mi) => {
-    console.log(firma_kodu,urun_agaci,urun_agaci_aciklama,passif_mi,'repo')
     const pool = await sql.connect(config);
     await pool.request()
         .input('COMCODE', sql.VarChar, firma_kodu)

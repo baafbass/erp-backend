@@ -9,7 +9,6 @@ const {
 const getAllIsMerkezi = async (req, res) => {
     try {
         const isMerkezleri = await getAllIsMerkeziFromDB();
-        console.log('ismerkezi',isMerkezleri)
         res.status(200).json({
             status:"OK",
             isMerkezleri,

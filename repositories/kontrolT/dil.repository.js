@@ -17,7 +17,6 @@ const getDilFromDB = async (dil_kodu,firma_kodu) => {
 };
 
 const createDilFromDB = async (firma_kodu,dil_kodu, dil_adi) => {
-    console.log("repo",firma_kodu,dil_kodu,dil_adi)
     const pool = await sql.connect(config);
     await pool.request()
         .input('COMCODE', sql.VarChar, firma_kodu)

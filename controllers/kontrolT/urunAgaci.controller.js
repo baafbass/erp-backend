@@ -9,7 +9,6 @@ const {
 const getAllUrunAgaci = async (req, res) => {
     try {
         const urunAgacilari = await getAllUrunAgaciFromDB();
-        console.log(urunAgacilari)
         res.status(200).json({
             status:'OK',
             urunAgacilari
